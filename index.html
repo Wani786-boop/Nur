@@ -1,0 +1,2405 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#10b981">
+  <title>NUR | Bilingual Islamic Portal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="/_sdk/data_sdk.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&amp;family=Noto+Nastaliq+Urdu:wght@400;700&amp;family=Amiri:wght@400;700&amp;display=swap" rel="stylesheet">
+  <style>
+        body { box-sizing: border-box; }
+        * { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .font-urdu { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.8; direction: rtl; }
+        .font-arabic { font-family: 'Amiri', serif; line-height: 2.2; direction: rtl; }
+        .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.2); }
+        .dark { background-color: #020617; color: white; }
+        .dark .glass { background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .mushaf { background: #fdf6e3; border: 1px solid #eee5cc; color: #1a1a1a; padding: 2rem; border-radius: 1.5rem; }
+        .dark .mushaf { background: #1e293b; border-color: #334155; color: #f1f5f9; }
+        .compass-ring { transition: transform 0.1s linear; }
+        .custom-scroll::-webkit-scrollbar { width: 5px; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #10b981; border-radius: 10px; }
+        .prayer-card { transition: all 0.3s ease; }
+        .prayer-card:hover { transform: translateY(-4px); }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in { animation: fadeIn 0.5s ease-out; }
+        .gradient-text { background: linear-gradient(135deg, #10b981 0%, #059669 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .nav-pill { transition: all 0.3s ease; }
+        .nav-pill.active { background: #10b981; color: white; }
+        .toast { animation: slideIn 0.3s ease-out, slideOut 0.3s ease-in 2.7s; }
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideOut {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .aligned { animation: pulse 1s ease-in-out infinite; }
+        .timeline-dot { width: 12px; height: 12px; border-radius: 50%; }
+        .timeline-line { width: 2px; background: #e5e7eb; }
+        .dark .timeline-line { background: #374151; }
+        .audio-player { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .loading-spinner { animation: spin 1s linear infinite; }
+        
+        /* Jameel Noori Font */
+        @font-face {
+            font-family: 'Jameel Noori Nastaleeq';
+            src: url('data:font/woff2;base64,d09GMgABAAAAABZcAA8AAAAANGwAABX/AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGhYbgSAcg0oGYACBfAhMCYM8EQwKgdQogZYBC4NEAAE2AiQDhxAEIAWDOgeFdQyBFhvkKqOQrNtkH+wgV9ZnEyI2TYRBJEKJcNu4KYlQM+v/n4RkCEjXEBSUUlIhzv+vT/xB/vjAB1EBwAdLIQP1KpyUmqnO7VlADYBCx4ixABiPDIDASsKlWQc0vr/Z3M3MmtYuafXiCCwIpyyhVaVkb7I1a61QalA1aRZp1r5JW/f9QMuynEw+rrrdvVmN+h/Ml58/qOnp1lrCVv0/+5Zp2aQx8V/7bK+3EQZJ2VxKt8qX+b8ORbMhpXSfV2+u/GnfPf8vZdP/LePdPF6LFdIgjROdLCmTl3AkWAocRaoOoX5G2n6FKCA9ABB0/9/7tPt+r8vvCioNMHnAc9//v1ttm/Vfp3EF1qKa3ycCjyiMr5vp7f7L7RZ6WaE8AX0I5WEKEI/KCRBxEiQIAkIkiEj9x3RyaT+Y0W01tdYIHCEXgRPQJsBB4AQJd3OXb9/m+X9mfnmN9n7ft2tzJ00mVuKsAGJ5rlPUmZy0t42lJ51zzWKv7h+YRCmDWQJ0hg3yEvZAoAtL1R3QUv2M9X/AKErkpA1kG+z0ZkD1/7Mqw8Vv79CQZrR3R+q6r8KLIKAACwK3oAt7rDwNnP7rPt10f/+ZXZYqZdP/z/7vxkxDhJu0QToxu1p+Rp0+f5KpqK4mCyiiicRKuTv0EBzXCEVf0IRf1mNv1f/O+A/9+yQv89wTjRHDIqAmACAXKE+AwGCw0q+xXuYFKXZ3m5lp9/9WO5shmUKVQy2y7/9r5jTdmCbpR/AqAoHYF9bvDu4lQBEOk0x2++8tTQ+Lf2T7/r//vf++bO1eaVWlVJVUaZXCEqtqzSGLVE2q5lz/q2qZanmpVVOt8J5cD4Ie7ykeCoBG/aYZqRHNmQFgZiCYGRBmBoKZyWBmWjBTjqPXqgNaXWHXHGhp6gGI2tWGRwfMuqoDWo1gdg6YTQOzhcPbMQ/M/vR6+j7aFPCo1H0H6mGFRNdDXx9dwHuTUWd4Xsav+f+kCi6TE+KBIQSEyEOJZ51qy/lQcFQsPC4xh8SjcKo9GXwGBYkgKn35wT2nSZBnr9EgHhJCgqDM41ZRXF5WVlNfsWF1Y2PL3d97TzgOVdAoRJoQQgCEQJIQGFoYwJ4oGxpaM6lJTUfN/HYOgf+KgoXQZKQwkSSmQePhWIwlm2BvRGgQQoNEJQRaQjrB+pAQqb9T/LJ+Fn2oPBv8lJyY/CXxqeMx1W/uyBJ2sVDPQYtZeznVv5pBxU1YPqgXvDaIBW7E4//i0YBajv5bGcNyihdkb3tvZusCVYEaIRqHEgMEFpH8dHqaOFW5HgwsjbYCVKhqJHWuO2Tz47+ZCyA3yp0P/wGW0gX+v1crUvF2p5i5e2/1gJ+V6D5j9HZjjDPLTqrx+Z0VLDbCITb7SRN5u4PU3U8a5v/8/99v1i21yrWyqm+V6l1qm7XXmvQeYfk9kn1X/o99vPqGfY36Q7bNdtttt0urq6v/rFJr6zBj/I/o/qzuf+jzp/48cPAw/8fqP+/s/bO2rp3Kq3T+f/f+XRfUH+q/qwf+5p93XbAv4H/XuP8t4A9EWXjTvP+2f+i/cfsQ/gEAlwDgAQDvYPwDUuQfoPs/O+5/9WZcpvzv+v/7d7s6Ll1cXV3dtJdfn0uX26WLqxdXry66GC9dXF1efC+Xa18v0H+M+x/c3b7c3kAREQAQANbdqvf+rj/u/17b/u8PXPd/+Y/HRfB//wBZMv+M4f/95xwB4BsA/n8N7l8u+4//O/g/AIDBYDAIBAaDQCAIBAAA3oH//4fD/jtw/+0GgSAgCMI6/fz//u5/pv//Cqp/aHf/G9Bj/oLCnYOjgsjPm++nvl/+fv77+f8PjMHBcBgMBsPgQBAQBAwBg2EQGAwBgyEQQGAwBI72f8/+/zuwr/dUef9/0f+x/I/eLgDAAAiGPPRfwf6v0b8CIMv1///fL/67jqQD4W8AmFN3PxA/q/v/P//+uv3/j10AcKNqfQAJJKCAAcFBaGA0EAqOgg2EBkZDoaCwMPD/3/+/gv9/hs5Q6gKgFgb/DRCAAP4d+i85/N/APwM//v37/+v/X1Cl/v/bv+nXX+3++wEI/vf/3+//v4DqV/YB8gcAAACHw2AwCAaDQWAQEAgCgUEgEAgMBkOgYDA4EAgCAmEw+H9/X///BQH8D/r/7+//j79//v39//Pf3//f/gD8BPjv31+gv8H+gPn39f///8///+/A37++//j75/+f3z///wX89ff/z79//v35++f3P+Dvv///Bf79//vv77//UO0f/AP///8/kP///0N+7f8fKsDpIQIECAQGgUFgMBgCA8NgUCgMBoXDYHAk/v8BAv+hwH8gMAgIAoVBYFAoFEb/+ffn/z/of/a//sG1//8Ptv/g2v/3/+///wH1XyChf////w/8/f+fgT8A//z5/e/PH4Dff//+/vv7738ggB/AP2Bg////f+Hh/38CZP6EQv//3//fjwPqAiAATgjGhID7X79W9u+u/X9F/q+u3V/b/gB0dO36s29XQGpX9//V+V+bv/v/b+nvzb+V//sA6gJ0o1pn9/92/t/A31v+7+T/0O+VpNRAAh0AABwOg8HgMBgEhIBAEAgEBoOAQCAADPb/3x/g/7+AQP/+/vv3/++/X/++//338+d/qL/Av/8ABYDiUOD/IADx/x/s//+//D+A/v/+Dvj3779//wIA/gMEBhLv//++fPnz/9+fv7+Bqv/A/v3x79+///8BAf/69+cP1L+///z/++c/QF9gMODPoS9wYOEe/OsX0p/gZVh4/Nv3S9Bl////w77/+fO7+/+a/F+hv0r/V/r/1f9f53+/Bv4u+7+avwD+Avzzp/t/7f9u/N/z/1b+e/q/+/82/f/7/8//Rf+7///+///gP+j/v0D+//vz//+D/EF+/fs37N+Q/0MBBkBg/n////x/B/Tz/58/vwAB/v/9+f/f778g///+/vf/z38gCPQXoC///v8B+g8WBvz9+zcAGOAvQP+gvv0B+vv/93/o/3+//wH9+vPn/18A+P/vP6Ae4B/g//7//f37/7//f4AB/gOCAvz9+xsgANQ/iBZF8QAAAABJRU5ErkJggg==') format('woff2');
+        }
+        
+        /* Language Switch Animation */
+        .lang-switch {
+            transition: all 0.3s ease;
+        }
+        
+        /* RTL Support for Urdu */
+        [dir="rtl"] {
+            direction: rtl;
+        }
+        
+        [dir="rtl"] .flex-reverse {
+            flex-direction: row-reverse;
+        }
+    </style>
+  <style>@view-transition { navigation: auto; }</style>
+ </head>
+ <body class="h-full overflow-auto w-full">
+  <div id="app" class="min-h-full w-full pb-28"><!-- Language Selector Modal -->
+   <div id="language-modal" class="fixed inset-0 z-[3000] flex items-center justify-center p-6 bg-black/80 backdrop-blur-md">
+    <div class="bg-white dark:bg-slate-900 rounded-[3rem] p-10 max-w-md w-full text-center shadow-2xl fade-in">
+     <div class="text-6xl mb-6">
+      🌍
+     </div>
+     <h2 class="text-3xl font-black mb-3">Select Language</h2>
+     <p class="text-lg font-urdu mb-3">زبان منتخب کریں</p>
+     <p class="text-gray-600 dark:text-gray-400 mb-8 text-sm">Choose your preferred language for the entire app</p>
+     <div class="space-y-4"><button onclick="setLanguage('en')" class="w-full py-5 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-2xl font-bold text-lg shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 transition-all flex items-center justify-center gap-3"> <span class="text-2xl">🇬🇧</span> <span>English</span> </button> <button onclick="setLanguage('ur')" class="w-full py-5 bg-gradient-to-r from-emerald-600 to-emerald-700 text-white rounded-2xl font-bold text-lg shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/40 transition-all flex items-center justify-center gap-3"> <span class="text-2xl">🇵🇰</span> <span class="font-urdu text-xl">اردو</span> </button>
+     </div>
+    </div>
+   </div><!-- 9PM Modal -->
+   <div id="modal-9pm" class="hidden fixed inset-0 z-[2000] flex items-center justify-center p-6 bg-black/60 backdrop-blur-md">
+    <div class="bg-white dark:bg-slate-900 rounded-[3rem] p-10 max-w-md w-full text-center shadow-2xl fade-in">
+     <div class="text-6xl mb-4" id="modal-icon">
+      🎉
+     </div>
+     <h2 class="text-2xl font-black mb-2" id="modal-title">Daily Prayer Check</h2>
+     <p class="font-urdu text-xl mb-4" id="modal-urdu">کیا آپ نے آج کی تمام نمازیں ادا کر لی ہیں؟</p>
+     <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm" id="modal-message"></p>
+     <div class="grid grid-cols-2 gap-4 mb-6">
+      <div class="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-900/20">
+       <p id="modal-completed" class="text-3xl font-bold text-emerald-600">0</p>
+       <p class="text-xs text-gray-600 dark:text-gray-400" id="modal-completed-label">Completed</p>
+      </div>
+      <div class="p-4 rounded-2xl bg-red-50 dark:bg-red-900/20">
+       <p id="modal-missed" class="text-3xl font-bold text-red-600">0</p>
+       <p class="text-xs text-gray-600 dark:text-gray-400" id="modal-missed-label">Missed</p>
+      </div>
+     </div><button onclick="closeDailyModal()" class="w-full py-4 bg-emerald-600 text-white rounded-2xl font-bold shadow-lg shadow-emerald-500/20 hover:bg-emerald-700 transition-all" id="modal-close-btn"> الحمدللہ Close </button>
+    </div>
+   </div><!-- Header -->
+   <header class="max-w-6xl mx-auto px-6 py-8 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+     <div class="w-12 h-12 bg-emerald-600 rounded-2xl flex items-center justify-center text-white shadow-xl shadow-emerald-500/30"><i data-lucide="moon-star" class="w-6 h-6"></i>
+     </div>
+     <div>
+      <h1 class="text-xl font-black tracking-tighter"><span id="app-title">NUR</span> <span class="text-emerald-600">OFFICIAL</span></h1>
+      <p class="text-[9px] font-bold opacity-50 uppercase tracking-[0.2em]" id="app-subtitle">Education Point Islamic</p>
+     </div>
+    </div>
+    <div class="flex items-center gap-2"><!-- Language Toggle --> <button onclick="toggleLanguageModal()" class="p-3 glass rounded-2xl hover:scale-110 transition-transform flex items-center gap-2"> <span id="lang-flag" class="text-xl">🇬🇧</span> <span id="lang-code" class="text-xs font-bold">EN</span> </button> <!-- Dark Mode Toggle --> <button onclick="toggleDarkMode()" class="p-3 glass rounded-2xl hover:scale-110 transition-transform"> <i data-lucide="sun" id="theme-icon" class="w-5 h-5"></i> </button>
+    </div>
+   </header><!-- Main Content -->
+   <main class="max-w-6xl mx-auto px-6 space-y-8"><!-- Home Section -->
+    <section id="section-home" class="space-y-8 fade-in"><!-- Hero Card -->
+     <div class="bg-emerald-600 dark:bg-emerald-900 rounded-[3rem] p-8 text-white shadow-2xl relative overflow-hidden">
+      <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -mr-32 -mt-32"></div>
+      <div class="relative z-10">
+       <div class="flex justify-between items-start mb-6">
+        <div>
+         <p class="text-sm opacity-75 mb-2" id="hijri-date">Loading...</p>
+         <h2 class="text-3xl font-black mb-1" id="next-prayer-label">Next Prayer</h2>
+         <p class="text-5xl font-black" id="next-prayer">Fajr</p>
+        </div>
+        <div class="text-right">
+         <p class="text-6xl font-black" id="next-time">05:30</p>
+         <p class="text-sm opacity-75" id="countdown">in 2h 30m</p>
+        </div>
+       </div>
+       <div class="grid grid-cols-5 gap-2">
+        <div id="fajr-card" class="bg-white/10 backdrop-blur rounded-2xl p-3 text-center">
+         <p class="text-xs opacity-75" id="fajr-label">Fajr</p>
+         <p class="text-sm font-bold" id="fajr-time">--:--</p>
+        </div>
+        <div id="dhuhr-card" class="bg-white/10 backdrop-blur rounded-2xl p-3 text-center">
+         <p class="text-xs opacity-75" id="dhuhr-label">Dhuhr</p>
+         <p class="text-sm font-bold" id="dhuhr-time">--:--</p>
+        </div>
+        <div id="asr-card" class="bg-white/10 backdrop-blur rounded-2xl p-3 text-center">
+         <p class="text-xs opacity-75" id="asr-label">Asr</p>
+         <p class="text-sm font-bold" id="asr-time">--:--</p>
+        </div>
+        <div id="maghrib-card" class="bg-white/10 backdrop-blur rounded-2xl p-3 text-center">
+         <p class="text-xs opacity-75" id="maghrib-label">Maghrib</p>
+         <p class="text-sm font-bold" id="maghrib-time">--:--</p>
+        </div>
+        <div id="isha-card" class="bg-white/10 backdrop-blur rounded-2xl p-3 text-center">
+         <p class="text-xs opacity-75" id="isha-label">Isha</p>
+         <p class="text-sm font-bold" id="isha-time">--:--</p>
+        </div>
+       </div>
+      </div>
+     </div><!-- Stats -->
+     <div class="grid grid-cols-3 gap-4">
+      <div class="glass rounded-3xl p-6 text-center">
+       <p class="text-3xl font-black text-emerald-600" id="stat-done">0</p>
+       <p class="text-xs font-bold opacity-50" id="stat-done-label">Completed</p>
+      </div>
+      <div class="glass rounded-3xl p-6 text-center">
+       <p class="text-3xl font-black text-yellow-600" id="stat-pending">5</p>
+       <p class="text-xs font-bold opacity-50" id="stat-pending-label">Pending</p>
+      </div>
+      <div class="glass rounded-3xl p-6 text-center">
+       <p class="text-3xl font-black text-red-600" id="stat-missed">0</p>
+       <p class="text-xs font-bold opacity-50" id="stat-missed-label">Missed</p>
+      </div>
+     </div><!-- Daily Ayah & Hadith -->
+     <div class="grid md:grid-cols-2 gap-6">
+      <div class="glass rounded-3xl p-6">
+       <h3 class="text-lg font-black mb-4 flex items-center gap-2"><i data-lucide="sparkles" class="w-5 h-5 text-emerald-600"></i> <span id="daily-ayah-title">Daily Ayah</span></h3>
+       <div id="daily-ayah" class="space-y-3">
+        <p class="font-arabic text-xl text-emerald-600 leading-loose">Loading...</p>
+        <p class="text-sm opacity-75 italic">Loading translation...</p>
+        <p class="text-xs opacity-50">- Loading reference...</p>
+       </div><button onclick="loadRandomAyah()" class="mt-4 px-4 py-2 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 rounded-xl text-sm font-bold hover:bg-emerald-100 dark:hover:bg-emerald-900/40 transition-all flex items-center gap-2"> <i data-lucide="refresh-cw" class="w-4 h-4"></i> <span id="new-ayah-btn">New Ayah</span> </button>
+      </div>
+      <div class="glass rounded-3xl p-6">
+       <h3 class="text-lg font-black mb-4 flex items-center gap-2"><i data-lucide="scroll-text" class="w-5 h-5 text-emerald-600"></i> <span id="daily-hadith-title">Daily Hadith</span></h3>
+       <div id="daily-hadith" class="space-y-3">
+        <p class="text-sm opacity-75 leading-relaxed">Loading hadith...</p>
+        <p class="text-xs opacity-50">- Sahih Bukhari</p>
+       </div><button onclick="loadRandomHadith()" class="mt-4 px-4 py-2 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 rounded-xl text-sm font-bold hover:bg-emerald-100 dark:hover:bg-emerald-900/40 transition-all flex items-center gap-2"> <i data-lucide="refresh-cw" class="w-4 h-4"></i> <span id="new-hadith-btn">New Hadith</span> </button>
+      </div>
+     </div>
+    </section><!-- Prayer Tracker Section -->
+    <section id="section-prayers" class="hidden space-y-6 fade-in">
+     <div class="flex items-center justify-between">
+      <h2 class="text-2xl font-black flex items-center gap-2"><i data-lucide="check-circle" class="w-7 h-7 text-emerald-600"></i> <span id="prayer-tracker-title">Prayer Tracker</span></h2>
+     </div><!-- Prayer Timeline -->
+     <div class="glass rounded-3xl p-6">
+      <h3 class="text-lg font-black mb-6 flex items-center gap-2"><i data-lucide="clock" class="w-5 h-5 text-emerald-600"></i> <span id="timeline-title">Today's Prayer Timeline</span></h3>
+      <div id="prayer-timeline" class="space-y-4"><!-- Timeline will be populated here -->
+      </div>
+     </div><!-- Prayer Cards -->
+     <div id="prayer-tracker-list" class="space-y-4"><!-- Prayer tracking cards will be populated here -->
+     </div>
+    </section><!-- Qibla Section -->
+    <section id="section-qibla" class="hidden space-y-6 fade-in">
+     <div class="glass rounded-3xl p-8 text-center">
+      <h2 class="text-2xl font-black mb-4 flex items-center justify-center gap-2"><i data-lucide="compass" class="w-7 h-7 text-emerald-600"></i> <span id="qibla-title">Live Qibla Compass</span></h2>
+      <p class="text-sm opacity-50 mb-8" id="qibla-status">Initializing compass...</p>
+      <div class="relative w-72 h-72 mx-auto mb-6"><!-- Outer Compass Ring -->
+       <div class="absolute inset-0 rounded-full bg-gradient-to-br from-emerald-100 to-emerald-200 dark:from-slate-800 dark:to-slate-900 border-4 border-emerald-500 shadow-2xl">
+        <div class="absolute inset-4 rounded-full border-2 border-emerald-400/50"></div>
+        <div class="absolute inset-8 rounded-full border border-emerald-300/30"></div>
+        <div class="absolute top-2 left-1/2 -translate-x-1/2 text-emerald-600 font-black text-base">
+         N
+        </div>
+        <div class="absolute bottom-2 left-1/2 -translate-x-1/2 opacity-50 text-sm font-bold">
+         S
+        </div>
+        <div class="absolute left-2 top-1/2 -translate-y-1/2 opacity-50 text-sm font-bold">
+         W
+        </div>
+        <div class="absolute right-2 top-1/2 -translate-y-1/2 opacity-50 text-sm font-bold">
+         E
+        </div>
+       </div><!-- Device Compass Indicator -->
+       <div id="compass-device" class="compass-ring absolute inset-0 flex items-center justify-center">
+        <svg width="140" height="140" viewbox="0 0 140 140" class="drop-shadow-lg"><polygon points="70,20 75,70 70,65 65,70" fill="#ef4444" stroke="#991b1b" stroke-width="1" /> <polygon points="70,120 75,70 70,75 65,70" fill="#64748b" stroke="#334155" stroke-width="1" /> <circle cx="70" cy="70" r="10" fill="white" stroke="#10b981" stroke-width="2" /> <circle cx="70" cy="70" r="4" fill="#10b981" />
+        </svg>
+       </div><!-- Qibla Direction Pointer -->
+       <div id="qibla-pointer" class="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <svg width="100" height="100" viewbox="0 0 100 100" class="drop-shadow-xl"><g>
+          <polygon points="50,15 58,50 50,45 42,50" fill="#10b981" stroke="#059669" stroke-width="2" />
+          <circle cx="50" cy="50" r="12" fill="#10b981" stroke="white" stroke-width="2" />
+          <text x="50" y="55" text-anchor="middle" fill="white" font-size="12" font-weight="bold">
+           🕋
+          </text>
+         </g>
+        </svg>
+       </div>
+      </div><!-- Info Display -->
+      <div class="grid grid-cols-2 gap-4 mb-6">
+       <div class="glass rounded-2xl p-4">
+        <p class="text-xs opacity-50 mb-1" id="qibla-direction-label">Qibla Direction</p>
+        <p id="qibla-degree" class="text-3xl font-black text-emerald-600">--°</p>
+        <p class="text-xs opacity-50" id="from-north-label">from North</p>
+       </div>
+       <div class="glass rounded-2xl p-4">
+        <p class="text-xs opacity-50 mb-1" id="device-heading-label">Device Heading</p>
+        <p id="device-heading" class="text-3xl font-black text-red-600">--°</p>
+        <p class="text-xs opacity-50" id="current-label">current</p>
+       </div>
+      </div><!-- Alignment Indicator -->
+      <div id="alignment-indicator" class="mb-6 p-4 rounded-2xl bg-gray-100 dark:bg-slate-800 transition-all">
+       <p class="text-sm font-bold opacity-75" id="alignment-text">Turn your device to align the red arrow with the green Kaaba pointer</p>
+      </div><!-- Distance to Makkah -->
+      <div class="glass rounded-2xl p-4 mb-4">
+       <p class="text-xs opacity-50 mb-1" id="distance-label">Distance to Makkah</p>
+       <p id="makkah-distance" class="text-2xl font-black text-emerald-600">Calculating...</p>
+      </div>
+      <div class="text-xs opacity-50 bg-emerald-50 dark:bg-slate-800 rounded-xl p-4 text-left space-y-2" id="qibla-instructions">
+       <p class="font-bold text-emerald-600 flex items-center gap-2"><i data-lucide="info" class="w-4 h-4"></i> <span id="how-to-use">How to use:</span></p>
+       <p id="instruction-1">1. Allow device orientation access when prompted</p>
+       <p id="instruction-2">2. Hold your device flat (parallel to ground)</p>
+       <p id="instruction-3">3. Rotate until red arrow aligns with green Kaaba pointer</p>
+       <p id="instruction-4">4. Face the direction your device is pointing</p>
+      </div><button id="compass-permission-btn" onclick="requestCompassPermission()" class="hidden mt-4 w-full py-4 bg-emerald-600 text-white rounded-2xl font-bold shadow-lg shadow-emerald-500/20 hover:bg-emerald-700 transition-all"> <span id="enable-compass-btn">Enable Compass</span> </button>
+     </div>
+    </section><!-- Quran Section -->
+    <section id="section-quran" class="hidden space-y-6 fade-in">
+     <div class="flex items-center justify-between">
+      <h2 class="text-2xl font-black flex items-center gap-2"><i data-lucide="book-open" class="w-7 h-7 text-emerald-600"></i> <span id="quran-title">Holy Quran</span></h2>
+     </div><!-- Surah List View -->
+     <div id="surah-list-view"><input type="text" id="surah-search" placeholder="Search Surah..." class="w-full px-6 py-4 rounded-2xl glass focus:outline-none focus:ring-2 focus:ring-emerald-500" oninput="filterSurahs(this.value)">
+      <div id="surah-list" class="grid gap-3 max-h-96 overflow-y-auto custom-scroll mt-6"><!-- Surahs will be populated here -->
+      </div>
+     </div><!-- Surah Reader View -->
+     <div id="surah-reader" class="hidden">
+      <div class="flex items-center justify-between mb-6"><button onclick="closeSurahReader()" class="px-6 py-3 glass rounded-2xl font-bold hover:bg-emerald-50 dark:hover:bg-slate-800 transition-all flex items-center gap-2"> <i data-lucide="arrow-left" class="w-4 h-4"></i> <span id="back-btn">Back</span> </button>
+       <h3 id="reader-surah-name" class="text-xl font-black text-emerald-600"></h3>
+       <div></div>
+      </div><!-- Audio Player -->
+      <div id="audio-player" class="audio-player rounded-3xl p-6 text-white mb-6 shadow-2xl">
+       <div class="flex items-center justify-between mb-4">
+        <div class="flex items-center gap-3"><i data-lucide="headphones" class="w-6 h-6"></i>
+         <div>
+          <p class="font-bold text-sm" id="reciter-label">Reciter: Mishary Alafasy</p>
+          <p class="text-xs opacity-75" id="audio-surah-name">Surah Al-Fatiha</p>
+         </div>
+        </div><button onclick="toggleAudioPlay()" id="play-btn" class="w-12 h-12 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center transition-all"> <i data-lucide="play" class="w-6 h-6" id="play-icon"></i> </button>
+       </div>
+       <div class="flex items-center gap-3"><span class="text-xs" id="current-time">0:00</span>
+        <div class="flex-1 h-2 bg-white/20 rounded-full overflow-hidden">
+         <div id="progress-bar" class="h-full bg-white rounded-full transition-all" style="width: 0%"></div>
+        </div><span class="text-xs" id="duration-time">0:00</span>
+       </div>
+       <audio id="quran-audio" preload="metadata"></audio>
+      </div>
+      <div id="ayah-container" class="space-y-6 max-h-96 overflow-y-auto custom-scroll"><!-- Ayahs will be populated here -->
+      </div>
+     </div>
+    </section><!-- Hadith Section -->
+    <section id="section-hadith" class="hidden space-y-6 fade-in">
+     <div class="flex items-center justify-between">
+      <h2 class="text-2xl font-black flex items-center gap-2"><i data-lucide="library" class="w-7 h-7 text-emerald-600"></i> <span id="hadith-collection-title">Hadith Collection</span></h2>
+     </div>
+     <div class="flex gap-2 overflow-x-auto pb-2"><button onclick="loadHadithBook('bukhari')" class="hadith-book-btn px-6 py-3 rounded-2xl bg-emerald-600 text-white font-bold whitespace-nowrap flex items-center gap-2" data-book="bukhari"> <i data-lucide="book-marked" class="w-4 h-4"></i> <span id="bukhari-label">Sahih Bukhari</span> </button> <button onclick="loadHadithBook('muslim')" class="hadith-book-btn px-6 py-3 rounded-2xl glass font-bold whitespace-nowrap hover:bg-emerald-50 dark:hover:bg-slate-800 transition-all flex items-center gap-2" data-book="muslim"> <i data-lucide="book-marked" class="w-4 h-4"></i> <span id="muslim-label">Sahih Muslim</span> </button> <button onclick="loadHadithBook('abudawud')" class="hadith-book-btn px-6 py-3 rounded-2xl glass font-bold whitespace-nowrap hover:bg-emerald-50 dark:hover:bg-slate-800 transition-all flex items-center gap-2" data-book="abudawud"> <i data-lucide="book-marked" class="w-4 h-4"></i> <span id="abudawud-label">Abu Dawud</span> </button> <button onclick="loadHadithBook('tirmidhi')" class="hadith-book-btn px-6 py-3 rounded-2xl glass font-bold whitespace-nowrap hover:bg-emerald-50 dark:hover:bg-slate-800 transition-all flex items-center gap-2" data-book="tirmidhi"> <i data-lucide="book-marked" class="w-4 h-4"></i> <span id="tirmidhi-label">Tirmidhi</span> </button> <button onclick="loadHadithBook('nasai')" class="hadith-book-btn px-6 py-3 rounded-2xl glass font-bold whitespace-nowrap hover:bg-emerald-50 dark:hover:bg-slate-800 transition-all flex items-center gap-2" data-book="nasai"> <i data-lucide="book-marked" class="w-4 h-4"></i> <span id="nasai-label">An-Nasai</span> </button> <button onclick="loadHadithBook('ibnmajah')" class="hadith-book-btn px-6 py-3 rounded-2xl glass font-bold whitespace-nowrap hover:bg-emerald-50 dark:hover:bg-slate-800 transition-all flex items-center gap-2" data-book="ibnmajah"> <i data-lucide="book-marked" class="w-4 h-4"></i> <span id="ibnmajah-label">Ibn Majah</span> </button>
+     </div>
+     <div id="hadith-list" class="space-y-4 max-h-96 overflow-y-auto custom-scroll"><!-- Hadiths will be populated here -->
+     </div>
+     <div class="flex justify-center gap-4"><button onclick="loadMoreHadith(-1)" class="px-6 py-3 glass rounded-2xl font-bold hover:bg-emerald-50 dark:hover:bg-slate-800 transition-all flex items-center gap-2"> <i data-lucide="chevron-left" class="w-4 h-4"></i> <span id="previous-btn">Previous</span> </button> <span id="hadith-page" class="px-6 py-3 text-emerald-600 font-bold">Page 1</span> <button onclick="loadMoreHadith(1)" class="px-6 py-3 glass rounded-2xl font-bold hover:bg-emerald-50 dark:hover:bg-slate-800 transition-all flex items-center gap-2"> <span id="next-btn">Next</span> <i data-lucide="chevron-right" class="w-4 h-4"></i> </button>
+     </div>
+    </section><!-- Adhkar Section -->
+    <section id="section-adhkar" class="hidden space-y-6 fade-in">
+     <div class="flex items-center justify-between">
+      <h2 class="text-2xl font-black flex items-center gap-2"><i data-lucide="hand" class="w-7 h-7 text-emerald-600"></i> <span id="adhkar-title">Daily Adhkar &amp; Duas</span></h2>
+     </div>
+     <div id="adhkar-categories" class="grid md:grid-cols-2 gap-4"><button onclick="loadAdhkarCategory('morning')" class="glass p-6 rounded-3xl text-left hover:bg-emerald-50 dark:hover:bg-slate-800 transition-all prayer-card">
+       <div class="flex items-center gap-3 mb-2">
+        <div class="w-12 h-12 rounded-2xl bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center"><i data-lucide="sunrise" class="w-6 h-6 text-orange-600"></i>
+        </div>
+        <h3 class="text-lg font-black" id="morning-adhkar-title">Morning Adhkar</h3>
+       </div><p class="text-sm opacity-50" id="morning-adhkar-desc">Recite after Fajr prayer</p></button> <button onclick="loadAdhkarCategory('evening')" class="glass p-6 rounded-3xl text-left hover:bg-emerald-50 dark:hover:bg-slate-800 transition-all prayer-card">
+       <div class="flex items-center gap-3 mb-2">
+        <div class="w-12 h-12 rounded-2xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center"><i data-lucide="sunset" class="w-6 h-6 text-purple-600"></i>
+        </div>
+        <h3 class="text-lg font-black" id="evening-adhkar-title">Evening Adhkar</h3>
+       </div><p class="text-sm opacity-50" id="evening-adhkar-desc">Recite after Asr prayer</p></button> <button onclick="loadAdhkarCategory('sleep')" class="glass p-6 rounded-3xl text-left hover:bg-emerald-50 dark:hover:bg-slate-800 transition-all prayer-card">
+       <div class="flex items-center gap-3 mb-2">
+        <div class="w-12 h-12 rounded-2xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center"><i data-lucide="moon" class="w-6 h-6 text-blue-600"></i>
+        </div>
+        <h3 class="text-lg font-black" id="sleep-adhkar-title">Before Sleep</h3>
+       </div><p class="text-sm opacity-50" id="sleep-adhkar-desc">Bedtime supplications</p></button> <button onclick="loadAdhkarCategory('wakeup')" class="glass p-6 rounded-3xl text-left hover:bg-emerald-50 dark:hover:bg-slate-800 transition-all prayer-card">
+       <div class="flex items-center gap-3 mb-2">
+        <div class="w-12 h-12 rounded-2xl bg-yellow-100 dark:bg-yellow-900/30 flex items-center justify-center"><i data-lucide="sun" class="w-6 h-6 text-yellow-600"></i>
+        </div>
+        <h3 class="text-lg font-black" id="wakeup-adhkar-title">Upon Waking</h3>
+       </div><p class="text-sm opacity-50" id="wakeup-adhkar-desc">Start your day</p></button> <button onclick="loadAdhkarCategory('general')" class="glass p-6 rounded-3xl text-left hover:bg-emerald-50 dark:hover:bg-slate-800 transition-all prayer-card">
+       <div class="flex items-center gap-3 mb-2">
+        <div class="w-12 h-12 rounded-2xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center"><i data-lucide="sparkles" class="w-6 h-6 text-emerald-600"></i>
+        </div>
+        <h3 class="text-lg font-black" id="general-adhkar-title">General Duas</h3>
+       </div><p class="text-sm opacity-50" id="general-adhkar-desc">Daily remembrance</p></button> <button onclick="loadAdhkarCategory('quran')" class="glass p-6 rounded-3xl text-left hover:bg-emerald-50 dark:hover:bg-slate-800 transition-all prayer-card">
+       <div class="flex items-center gap-3 mb-2">
+        <div class="w-12 h-12 rounded-2xl bg-pink-100 dark:bg-pink-900/30 flex items-center justify-center"><i data-lucide="book-heart" class="w-6 h-6 text-pink-600"></i>
+        </div>
+        <h3 class="text-lg font-black" id="quran-adhkar-title">Quranic Duas</h3>
+       </div><p class="text-sm opacity-50" id="quran-adhkar-desc">Duas from the Quran</p></button>
+     </div>
+     <div id="adhkar-content" class="hidden">
+      <div class="flex items-center justify-between mb-6"><button onclick="closeAdhkarContent()" class="px-6 py-3 glass rounded-2xl font-bold hover:bg-emerald-50 dark:hover:bg-slate-800 transition-all flex items-center gap-2"> <i data-lucide="arrow-left" class="w-4 h-4"></i> <span id="back-adhkar-btn">Back</span> </button>
+       <h3 id="adhkar-category-title" class="text-xl font-black text-emerald-600"></h3>
+       <div></div>
+      </div>
+      <div id="adhkar-list" class="space-y-4 max-h-96 overflow-y-auto custom-scroll"><!-- Adhkar will be populated here -->
+      </div>
+     </div>
+    </section><!-- Tasbeeh Counter Section -->
+    <section id="section-tasbeeh" class="hidden space-y-6 fade-in">
+     <div class="flex items-center justify-between">
+      <h2 class="text-2xl font-black flex items-center gap-2"><i data-lucide="circle-dot" class="w-7 h-7 text-emerald-600"></i> <span id="tasbeeh-title">Digital Tasbeeh</span></h2>
+     </div><!-- Main Counter Card -->
+     <div class="bg-gradient-to-br from-emerald-600 to-emerald-700 rounded-[3rem] p-12 text-white shadow-2xl relative overflow-hidden">
+      <div class="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full -mr-48 -mt-48"></div>
+      <div class="absolute bottom-0 left-0 w-64 h-64 bg-black/5 rounded-full -ml-32 -mb-32"></div>
+      <div class="relative z-10 text-center"><!-- Current Dhikr Name -->
+       <p class="text-sm opacity-75 mb-2" id="current-dhikr-label">Current Dhikr</p>
+       <h3 class="font-arabic text-4xl mb-8" id="current-dhikr-arabic">سُبْحَانَ اللّٰهِ</h3><!-- Main Counter Display -->
+       <div class="mb-8">
+        <p class="text-9xl font-black mb-4" id="tasbeeh-count">0</p>
+        <div class="flex items-center justify-center gap-4">
+         <div class="text-center">
+          <p class="text-xs opacity-75 mb-1" id="target-label">Target</p>
+          <p class="text-2xl font-bold" id="tasbeeh-target">33</p>
+         </div>
+         <div class="w-px h-12 bg-white/20"></div>
+         <div class="text-center">
+          <p class="text-xs opacity-75 mb-1" id="remaining-label">Remaining</p>
+          <p class="text-2xl font-bold" id="tasbeeh-remaining">33</p>
+         </div>
+        </div>
+       </div><!-- Progress Bar -->
+       <div class="mb-8">
+        <div class="h-4 bg-white/20 rounded-full overflow-hidden">
+         <div id="tasbeeh-progress" class="h-full bg-white rounded-full transition-all duration-300" style="width: 0%"></div>
+        </div>
+       </div><!-- Main Counter Button --> <button onclick="incrementTasbeeh()" class="w-full h-32 bg-white/20 hover:bg-white/30 active:bg-white/40 rounded-3xl text-3xl font-black transition-all shadow-2xl mb-4 flex items-center justify-center gap-3" id="count-btn"> <i data-lucide="plus-circle" class="w-12 h-12"></i> <span id="tap-count-btn">TAP TO COUNT</span> </button> <!-- Action Buttons -->
+       <div class="grid grid-cols-2 gap-3"><button onclick="resetTasbeeh()" class="py-4 bg-white/10 hover:bg-white/20 rounded-2xl font-bold transition-all flex items-center justify-center gap-2"> <i data-lucide="rotate-ccw" class="w-5 h-5"></i> <span id="reset-btn">Reset</span> </button> <button onclick="toggleTasbeehSettings()" class="py-4 bg-white/10 hover:bg-white/20 rounded-2xl font-bold transition-all flex items-center justify-center gap-2"> <i data-lucide="settings" class="w-5 h-5"></i> <span id="settings-btn">Settings</span> </button>
+       </div>
+      </div>
+     </div><!-- Settings Panel -->
+     <div id="tasbeeh-settings" class="hidden space-y-4">
+      <div class="glass rounded-3xl p-6">
+       <h3 class="text-lg font-black mb-4 flex items-center gap-2"><i data-lucide="list" class="w-5 h-5 text-emerald-600"></i> <span id="dhikr-presets-title">Dhikr Presets</span></h3>
+       <div class="grid gap-3"><button onclick="selectDhikr('سُبْحَانَ اللّٰهِ', 'Subhan Allah', 33)" class="glass rounded-2xl p-4 text-left hover:bg-emerald-50 dark:hover:bg-slate-800 transition-all flex items-center justify-between">
+         <div>
+          <p class="font-arabic text-xl text-emerald-600">سُبْحَانَ اللّٰهِ</p>
+          <p class="text-sm opacity-50">Subhan Allah</p>
+         </div><span class="text-xs px-3 py-1 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 rounded-xl font-bold">33x</span> </button> <button onclick="selectDhikr('الْحَمْدُ لِلّٰهِ', 'Alhamdulillah', 33)" class="glass rounded-2xl p-4 text-left hover:bg-emerald-50 dark:hover:bg-slate-800 transition-all flex items-center justify-between">
+         <div>
+          <p class="font-arabic text-xl text-emerald-600">الْحَمْدُ لِلّٰهِ</p>
+          <p class="text-sm opacity-50">Alhamdulillah</p>
+         </div><span class="text-xs px-3 py-1 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 rounded-xl font-bold">33x</span> </button> <button onclick="selectDhikr('اللّٰهُ أَكْبَرُ', 'Allahu Akbar', 34)" class="glass rounded-2xl p-4 text-left hover:bg-emerald-50 dark:hover:bg-slate-800 transition-all flex items-center justify-between">
+         <div>
+          <p class="font-arabic text-xl text-emerald-600">اللّٰهُ أَكْبَرُ</p>
+          <p class="text-sm opacity-50">Allahu Akbar</p>
+         </div><span class="text-xs px-3 py-1 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 rounded-xl font-bold">34x</span> </button> <button onclick="selectDhikr('لَا إِلٰهَ إِلَّا اللّٰهُ', 'La ilaha illallah', 100)" class="glass rounded-2xl p-4 text-left hover:bg-emerald-50 dark:hover:bg-slate-800 transition-all flex items-center justify-between">
+         <div>
+          <p class="font-arabic text-xl text-emerald-600">لَا إِلٰهَ إِلَّا اللّٰهُ</p>
+          <p class="text-sm opacity-50">La ilaha illallah</p>
+         </div><span class="text-xs px-3 py-1 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 rounded-xl font-bold">100x</span> </button> <button onclick="selectDhikr('أَسْتَغْفِرُ اللّٰهَ', 'Astaghfirullah', 100)" class="glass rounded-2xl p-4 text-left hover:bg-emerald-50 dark:hover:bg-slate-800 transition-all flex items-center justify-between">
+         <div>
+          <p class="font-arabic text-xl text-emerald-600">أَسْتَغْفِرُ اللّٰهَ</p>
+          <p class="text-sm opacity-50">Astaghfirullah</p>
+         </div><span class="text-xs px-3 py-1 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 rounded-xl font-bold">100x</span> </button>
+       </div>
+      </div>
+      <div class="glass rounded-3xl p-6">
+       <h3 class="text-lg font-black mb-4 flex items-center gap-2"><i data-lucide="target" class="w-5 h-5 text-emerald-600"></i> <span id="custom-target-title">Custom Target</span></h3>
+       <div class="flex gap-3"><input type="number" id="custom-target-input" min="1" max="9999" value="33" class="flex-1 px-6 py-4 rounded-2xl glass focus:outline-none focus:ring-2 focus:ring-emerald-500 font-bold text-lg text-center"> <button onclick="setCustomTarget()" class="px-6 py-4 bg-emerald-600 text-white rounded-2xl font-bold hover:bg-emerald-700 transition-all flex items-center gap-2"> <i data-lucide="check" class="w-5 h-5"></i> <span id="set-btn">Set</span> </button>
+       </div>
+      </div>
+     </div><!-- Statistics -->
+     <div class="grid md:grid-cols-3 gap-4">
+      <div class="glass rounded-3xl p-6 text-center">
+       <p class="text-3xl font-black text-emerald-600" id="total-today">0</p>
+       <p class="text-xs font-bold opacity-50" id="total-today-label">Today's Total</p>
+      </div>
+      <div class="glass rounded-3xl p-6 text-center">
+       <p class="text-3xl font-black text-emerald-600" id="completed-rounds">0</p>
+       <p class="text-xs font-bold opacity-50" id="completed-rounds-label">Completed Rounds</p>
+      </div>
+      <div class="glass rounded-3xl p-6 text-center">
+       <p class="text-3xl font-black text-emerald-600" id="total-lifetime">0</p>
+       <p class="text-xs font-bold opacity-50" id="total-lifetime-label">Lifetime Total</p>
+      </div>
+     </div><!-- Tasbeeh History -->
+     <div class="glass rounded-3xl p-6">
+      <h3 class="text-lg font-black mb-4 flex items-center gap-2"><i data-lucide="history" class="w-5 h-5 text-emerald-600"></i> <span id="tasbeeh-history-title">Recent Activity</span></h3>
+      <div id="tasbeeh-history-list" class="space-y-3 max-h-64 overflow-y-auto custom-scroll"><!-- History items will be populated here -->
+      </div>
+      <div id="no-tasbeeh-history" class="text-center py-8 opacity-50"><i data-lucide="circle-off" class="w-12 h-12 mx-auto mb-3 text-gray-400"></i>
+       <p class="text-sm" id="no-tasbeeh-text">Start counting to see your activity here</p>
+      </div>
+     </div>
+    </section><!-- History Section -->
+    <section id="section-history" class="hidden space-y-6 fade-in">
+     <div class="flex items-center justify-between">
+      <h2 class="text-2xl font-black flex items-center gap-2"><i data-lucide="bar-chart-3" class="w-7 h-7 text-emerald-600"></i> <span id="history-title">Prayer History</span></h2>
+     </div>
+     <div id="tracker-history" class="space-y-4 max-h-96 overflow-y-auto custom-scroll"><!-- History will be populated here -->
+     </div>
+     <div id="no-history" class="text-center py-12 opacity-50"><i data-lucide="calendar-off" class="w-16 h-16 mx-auto mb-4 text-gray-400"></i>
+      <p id="no-history-text">Start tracking your prayers to see history here</p>
+     </div>
+    </section>
+   </main><!-- Bottom Navigation -->
+   <nav class="fixed bottom-0 left-0 right-0 glass border-t dark:border-slate-800 z-50">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex justify-around items-center"><button onclick="showSection('home')" class="nav-pill active flex flex-col items-center gap-1 px-4 py-2 rounded-2xl transition-all" data-section="home"> <i data-lucide="home" class="w-5 h-5"></i> <span class="text-[10px] font-bold" id="nav-home">Home</span> </button> <button onclick="showSection('prayers')" class="nav-pill flex flex-col items-center gap-1 px-4 py-2 rounded-2xl transition-all" data-section="prayers"> <i data-lucide="layers" class="w-5 h-5"></i> <span class="text-[10px] font-bold" id="nav-prayers">Prayers</span> </button> <button onclick="showSection('qibla')" class="nav-pill flex flex-col items-center gap-1 px-4 py-2 rounded-2xl transition-all" data-section="qibla"> <i data-lucide="navigation" class="w-5 h-5"></i> <span class="text-[10px] font-bold" id="nav-qibla">Qibla</span> </button> <button onclick="showSection('quran')" class="nav-pill flex flex-col items-center gap-1 px-4 py-2 rounded-2xl transition-all" data-section="quran"> <i data-lucide="book" class="w-5 h-5"></i> <span class="text-[10px] font-bold" id="nav-quran">Quran</span> </button> <button onclick="showSection('hadith')" class="nav-pill flex flex-col items-center gap-1 px-4 py-2 rounded-2xl transition-all" data-section="hadith"> <i data-lucide="scroll" class="w-5 h-5"></i> <span class="text-[10px] font-bold" id="nav-hadith">Hadith</span> </button> <button onclick="showSection('adhkar')" class="nav-pill flex flex-col items-center gap-1 px-4 py-2 rounded-2xl transition-all" data-section="adhkar"> <i data-lucide="sparkle" class="w-5 h-5"></i> <span class="text-[10px] font-bold" id="nav-adhkar">Adhkar</span> </button> <button onclick="showSection('history')" class="nav-pill flex flex-col items-center gap-1 px-4 py-2 rounded-2xl transition-all" data-section="history"> <i data-lucide="activity" class="w-5 h-5"></i> <span class="text-[10px] font-bold" id="nav-history">History</span> </button> <button onclick="showSection('tasbeeh')" class="nav-pill flex flex-col items-center gap-1 px-4 py-2 rounded-2xl transition-all" data-section="tasbeeh"> <i data-lucide="circle-dot" class="w-5 h-5"></i> <span class="text-[10px] font-bold" id="nav-tasbeeh">Tasbeeh</span> </button>
+    </div>
+   </nav><!-- Toast Container -->
+   <div id="toast-container" class="fixed top-24 right-6 z-[1000] space-y-2"></div>
+  </div>
+  <script>
+        // Language Translations
+        const translations = {
+            en: {
+                // Header
+                app_title: "NUR",
+                app_subtitle: "Education Point Islamic",
+                
+                // Home Section
+                next_prayer_label: "Next Prayer",
+                fajr: "Fajr",
+                dhuhr: "Dhuhr",
+                asr: "Asr",
+                maghrib: "Maghrib",
+                isha: "Isha",
+                completed: "Completed",
+                pending: "Pending",
+                missed: "Missed",
+                daily_ayah_title: "Daily Ayah",
+                daily_hadith_title: "Daily Hadith",
+                new_ayah: "New Ayah",
+                new_hadith: "New Hadith",
+                
+                // Prayer Tracker
+                prayer_tracker_title: "Prayer Tracker",
+                timeline_title: "Today's Prayer Timeline",
+                current: "Current",
+                done: "Done",
+                
+                // Qibla
+                qibla_title: "Live Qibla Compass",
+                qibla_status_init: "Initializing compass...",
+                qibla_direction: "Qibla Direction",
+                device_heading: "Device Heading",
+                from_north: "from North",
+                current_label: "current",
+                distance_label: "Distance to Makkah",
+                how_to_use: "How to use:",
+                instruction_1: "1. Allow device orientation access when prompted",
+                instruction_2: "2. Hold your device flat (parallel to ground)",
+                instruction_3: "3. Rotate until red arrow aligns with green Kaaba pointer",
+                instruction_4: "4. Face the direction your device is pointing",
+                enable_compass: "Enable Compass",
+                alignment_text: "Turn your device to align the red arrow with the green Kaaba pointer",
+                
+                // Quran
+                quran_title: "Holy Quran",
+                search_surah: "Search Surah...",
+                back: "Back",
+                reciter: "Reciter: Mishary Alafasy",
+                ayahs: "Ayahs",
+                
+                // Hadith
+                hadith_collection: "Hadith Collection",
+                sahih_bukhari: "Sahih Bukhari",
+                sahih_muslim: "Sahih Muslim",
+                abu_dawud: "Abu Dawud",
+                tirmidhi: "Tirmidhi",
+                nasai: "An-Nasai",
+                ibn_majah: "Ibn Majah",
+                previous: "Previous",
+                next: "Next",
+                page: "Page",
+                
+                // Adhkar
+                adhkar_title: "Daily Adhkar & Duas",
+                morning_adhkar: "Morning Adhkar",
+                morning_desc: "Recite after Fajr prayer",
+                evening_adhkar: "Evening Adhkar",
+                evening_desc: "Recite after Asr prayer",
+                sleep_adhkar: "Before Sleep",
+                sleep_desc: "Bedtime supplications",
+                wakeup_adhkar: "Upon Waking",
+                wakeup_desc: "Start your day",
+                general_adhkar: "General Duas",
+                general_desc: "Daily remembrance",
+                quran_adhkar: "Quranic Duas",
+                quran_desc: "Duas from the Quran",
+                repeat: "Repeat",
+                
+                // History
+                history_title: "Prayer History",
+                no_history: "Start tracking your prayers to see history here",
+                
+                // Navigation
+                nav_home: "Home",
+                nav_prayers: "Prayers",
+                nav_qibla: "Qibla",
+                nav_quran: "Quran",
+                nav_hadith: "Hadith",
+                nav_adhkar: "Adhkar",
+                nav_history: "History",
+                nav_tasbeeh: "Tasbeeh",
+                
+                // Tasbeeh
+                tasbeeh_title: "Digital Tasbeeh",
+                current_dhikr: "Current Dhikr",
+                target: "Target",
+                remaining: "Remaining",
+                tap_count: "TAP TO COUNT",
+                reset: "Reset",
+                settings: "Settings",
+                dhikr_presets: "Dhikr Presets",
+                custom_target: "Custom Target",
+                set: "Set",
+                today_total: "Today's Total",
+                completed_rounds: "Completed Rounds",
+                lifetime_total: "Lifetime Total",
+                recent_activity: "Recent Activity",
+                no_tasbeeh: "Start counting to see your activity here",
+                round_completed: "Round Completed! 🎉",
+                
+                // Modal
+                modal_title: "Daily Prayer Check",
+                modal_close: "Close",
+                
+                // Toasts
+                loading: "Loading...",
+                success: "Success",
+                error: "Error"
+            },
+            ur: {
+                // Header
+                app_title: "نور",
+                app_subtitle: "تعلیم پوائنٹ اسلامک",
+                
+                // Home Section
+                next_prayer_label: "اگلی نماز",
+                fajr: "فجر",
+                dhuhr: "ظہر",
+                asr: "عصر",
+                maghrib: "مغرب",
+                isha: "عشاء",
+                completed: "مکمل",
+                pending: "باقی",
+                missed: "چھوٹی",
+                daily_ayah_title: "آج کی آیت",
+                daily_hadith_title: "آج کی حدیث",
+                new_ayah: "نئی آیت",
+                new_hadith: "نئ�� حدیث",
+                
+                // Prayer Tracker
+                prayer_tracker_title: "نماز ٹریکر",
+                timeline_title: "آج کی نمازوں کا شیڈول",
+                current: "موجودہ",
+                done: "ہو گئی",
+                
+                // Qibla
+                qibla_title: "لائیو قبلہ کمپاس",
+                qibla_status_init: "کمپاس شروع ہو رہا ہے...",
+                qibla_direction: "قبلہ کی سمت",
+                device_heading: "آلہ کی سمت",
+                from_north: "شمال سے",
+                current_label: "موجودہ",
+                distance_label: "مکہ سے فاصلہ",
+                how_to_use: "استعمال کیسے کریں:",
+                instruction_1: "1. جب کہا جائے تو آلہ کی سمت کی اجازت دیں",
+                instruction_2: "2. ��پنے آلے کو فلیٹ رکھیں (زمین کے متوازی)",
+                instruction_3: "3. گھمائیں یہاں تک کہ سرخ تیر سبز کعبہ کے اشارے کے ساتھ سیدھ میں آجائے",
+                instruction_4: "4. اپنے آلے کی طرف رخ کریں",
+                enable_compass: "کمپاس فعال کریں",
+                alignment_text: "اپنے آلے کو گھمائیں تاکہ سرخ تیر سبز کعبہ کے اشارے کے ساتھ سیدھ میں آجائے",
+                
+                // Quran
+                quran_title: "قرآن مجید",
+                search_surah: "سورہ تلاش کریں...",
+                back: "واپس",
+                reciter: "قاری: مشاری العفاسی",
+                ayahs: "آیات",
+                
+                // Hadith
+                hadith_collection: "احادیث کا مجموعہ",
+                sahih_bukhari: "صحیح بخا��ی",
+                sahih_muslim: "صحیح مسلم",
+                abu_dawud: "ابو داؤد",
+                tirmidhi: "ترمذی",
+                nasai: "نسائی",
+                ibn_majah: "ابن ماجہ",
+                previous: "پچھلا",
+                next: "اگلا",
+                page: "صفحہ",
+                
+                // Adhkar
+                adhkar_title: "روزانہ کے اذکار اور دعائیں",
+                morning_adhkar: "صبح کے اذکار",
+                morning_desc: "فجر کی نماز کے بعد پڑھیں",
+                evening_adhkar: "شام کے اذکار",
+                evening_desc: "عصر کی نماز کے بعد پڑھیں",
+                sleep_adhkar: "سونے سے پہلے",
+                sleep_desc: "رات کی دعائیں",
+                wakeup_adhkar: "بیدار ہونے پر",
+                wakeup_desc: "اپنا دن شروع کریں",
+                general_adhkar: "عام دعائیں",
+                general_desc: "روزانہ کا ذکر",
+                quran_adhkar: "قرآنی دعائیں",
+                quran_desc: "قرآن سے دعائیں",
+                repeat: "دہرائیں",
+                
+                // History
+                history_title: "نماز کی تاریخ",
+                no_history: "اپنی نمازوں کو ٹریک کرنا شروع کریں تاکہ یہاں تاریخ دیکھ سکیں",
+                
+                // Navigation
+                nav_home: "گھر",
+                nav_prayers: "نمازیں",
+                nav_qibla: "قبلہ",
+                nav_quran: "قرآن",
+                nav_hadith: "حدیث",
+                nav_adhkar: "اذکار",
+                nav_history: "تاریخ",
+                nav_tasbeeh: "تسبیح",
+                
+                // Tasbeeh
+                tasbeeh_title: "ڈیجیٹل تسبیح",
+                current_dhikr: "موجودہ ذکر",
+                target: "ہدف",
+                remaining: "باقی",
+                tap_count: "گنتی کے لیے ٹیپ کریں",
+                reset: "دوبارہ شروع",
+                settings: "ترتیبات",
+                dhikr_presets: "ذکر کی فہرست",
+                custom_target: "اپنا ہدف",
+                set: "مقرر کریں",
+                today_total: "آج کا کل",
+                completed_rounds: "مکمل راؤنڈز",
+                lifetime_total: "کل مجموعی",
+                recent_activity: "حالیہ سرگرمی",
+                no_tasbeeh: "گننا شروع کریں تاکہ یہاں سرگرمی دیکھ سکیں",
+                round_completed: "راؤنڈ مکمل! 🎉",
+                
+                // Modal
+                modal_title: "روزانہ نماز کی جانچ",
+                modal_close: "بند کریں",
+                
+                // Toasts
+                loading: "لوڈ ہو رہا ہے...",
+                success: "کامیابی",
+                error: "غلطی"
+            }
+        };
+
+        // Global State
+        let appState = {
+            language: localStorage.getItem('appLanguage') || null,
+            location: { lat: null, lng: null },
+            prayerTimes: {},
+            todayDate: new Date().toISOString().split('T')[0],
+            prayerRecords: [],
+            surahs: [],
+            currentSurah: null,
+            currentAudio: null,
+            isPlaying: false,
+            hadithPage: 1,
+            currentHadithBook: 'bukhari',
+            qiblaDegree: 0,
+            deviceHeading: 0,
+            compassEnabled: false,
+            darkMode: false,
+            hisnMuslimData: null,
+            tasbeeh: {
+                count: 0,
+                target: 33,
+                currentDhikr: 'سُبْحَانَ اللّٰهِ',
+                currentDhikrEn: 'Subhan Allah',
+                todayTotal: 0,
+                lifetimeTotal: 0,
+                completedRounds: 0,
+                history: []
+            }
+        };
+
+        const defaultConfig = {
+            app_title: 'NUR',
+            app_subtitle: 'Education Point Islamic',
+            welcome_urdu: 'آج کی نمازیں',
+            background_color: '#f8fafc',
+            surface_color: '#ffffff',
+            text_color: '#0f172a',
+            primary_action: '#10b981',
+            secondary_action: '#64748b'
+        };
+
+        let config = { ...defaultConfig };
+        const prayers = ['Fajr', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'];
+
+        // Language Functions
+        function setLanguage(lang) {
+            appState.language = lang;
+            localStorage.setItem('appLanguage', lang);
+            
+            // Update UI
+            document.getElementById('lang-flag').textContent = lang === 'en' ? '🇬🇧' : '🇵🇰';
+            document.getElementById('lang-code').textContent = lang.toUpperCase();
+            
+            // Hide language modal
+            document.getElementById('language-modal').classList.add('hidden');
+            
+            // Apply translations
+            applyTranslations();
+            
+            // Reload dynamic content
+            loadRandomAyah();
+            loadRandomHadith();
+            renderSurahList(appState.surahs);
+            renderPrayerTracking();
+            updateTrackerHistory();
+            
+            // Show toast
+            showToast(lang === 'en' ? 'Language changed to English' : 'زبان اردو میں تبدیل ہو گئی', 'success');
+        }
+
+        function toggleLanguageModal() {
+            const modal = document.getElementById('language-modal');
+            modal.classList.toggle('hidden');
+        }
+
+        function applyTranslations() {
+            const lang = appState.language;
+            const t = translations[lang];
+            
+            // Apply RTL for Urdu
+            if (lang === 'ur') {
+                document.body.setAttribute('dir', 'rtl');
+                document.body.classList.add('font-urdu');
+            } else {
+                document.body.setAttribute('dir', 'ltr');
+                document.body.classList.remove('font-urdu');
+            }
+            
+            // Update all text elements
+            const textMap = {
+                'app-title': 'app_title',
+                'app-subtitle': 'app_subtitle',
+                'next-prayer-label': 'next_prayer_label',
+                'fajr-label': 'fajr',
+                'dhuhr-label': 'dhuhr',
+                'asr-label': 'asr',
+                'maghrib-label': 'maghrib',
+                'isha-label': 'isha',
+                'stat-done-label': 'completed',
+                'stat-pending-label': 'pending',
+                'stat-missed-label': 'missed',
+                'daily-ayah-title': 'daily_ayah_title',
+                'daily-hadith-title': 'daily_hadith_title',
+                'new-ayah-btn': 'new_ayah',
+                'new-hadith-btn': 'new_hadith',
+                'prayer-tracker-title': 'prayer_tracker_title',
+                'timeline-title': 'timeline_title',
+                'qibla-title': 'qibla_title',
+                'qibla-direction-label': 'qibla_direction',
+                'device-heading-label': 'device_heading',
+                'from-north-label': 'from_north',
+                'current-label': 'current_label',
+                'distance-label': 'distance_label',
+                'how-to-use': 'how_to_use',
+                'instruction-1': 'instruction_1',
+                'instruction-2': 'instruction_2',
+                'instruction-3': 'instruction_3',
+                'instruction-4': 'instruction_4',
+                'enable-compass-btn': 'enable_compass',
+                'alignment-text': 'alignment_text',
+                'quran-title': 'quran_title',
+                'back-btn': 'back',
+                'back-adhkar-btn': 'back',
+                'reciter-label': 'reciter',
+                'hadith-collection-title': 'hadith_collection',
+                'bukhari-label': 'sahih_bukhari',
+                'muslim-label': 'sahih_muslim',
+                'abudawud-label': 'abu_dawud',
+                'tirmidhi-label': 'tirmidhi',
+                'nasai-label': 'nasai',
+                'ibnmajah-label': 'ibn_majah',
+                'previous-btn': 'previous',
+                'next-btn': 'next',
+                'adhkar-title': 'adhkar_title',
+                'morning-adhkar-title': 'morning_adhkar',
+                'morning-adhkar-desc': 'morning_desc',
+                'evening-adhkar-title': 'evening_adhkar',
+                'evening-adhkar-desc': 'evening_desc',
+                'sleep-adhkar-title': 'sleep_adhkar',
+                'sleep-adhkar-desc': 'sleep_desc',
+                'wakeup-adhkar-title': 'wakeup_adhkar',
+                'wakeup-adhkar-desc': 'wakeup_desc',
+                'general-adhkar-title': 'general_adhkar',
+                'general-adhkar-desc': 'general_desc',
+                'quran-adhkar-title': 'quran_adhkar',
+                'quran-adhkar-desc': 'quran_desc',
+                'history-title': 'history_title',
+                'no-history-text': 'no_history',
+                'nav-home': 'nav_home',
+                'nav-prayers': 'nav_prayers',
+                'nav-qibla': 'nav_qibla',
+                'nav-quran': 'nav_quran',
+                'nav-hadith': 'nav_hadith',
+                'nav-adhkar': 'nav_adhkar',
+                'nav-history': 'nav_history',
+                'nav-tasbeeh': 'nav_tasbeeh',
+                'modal-title': 'modal_title',
+                'modal-close-btn': 'modal_close',
+                'modal-completed-label': 'completed',
+                'modal-missed-label': 'missed',
+                'tasbeeh-title': 'tasbeeh_title',
+                'current-dhikr-label': 'current_dhikr',
+                'target-label': 'target',
+                'remaining-label': 'remaining',
+                'tap-count-btn': 'tap_count',
+                'reset-btn': 'reset',
+                'settings-btn': 'settings',
+                'dhikr-presets-title': 'dhikr_presets',
+                'custom-target-title': 'custom_target',
+                'set-btn': 'set',
+                'total-today-label': 'today_total',
+                'completed-rounds-label': 'completed_rounds',
+                'total-lifetime-label': 'lifetime_total',
+                'tasbeeh-history-title': 'recent_activity',
+                'no-tasbeeh-text': 'no_tasbeeh'
+            };
+            
+            Object.keys(textMap).forEach(id => {
+                const el = document.getElementById(id);
+                if (el && t[textMap[id]]) {
+                    el.textContent = t[textMap[id]];
+                }
+            });
+            
+            // Update search placeholder
+            const searchInput = document.getElementById('surah-search');
+            if (searchInput) {
+                searchInput.placeholder = t.search_surah;
+            }
+            
+            // Update page text
+            const pageEl = document.getElementById('hadith-page');
+            if (pageEl) {
+                pageEl.textContent = `${t.page} ${appState.hadithPage}`;
+            }
+        }
+
+        // Data Handler
+        const dataHandler = {
+            onDataChanged(data) {
+                appState.prayerRecords = data;
+                updatePrayerUI();
+                updateStats();
+                updateTrackerHistory();
+                updatePrayerTimeline();
+            }
+        };
+
+        // Element SDK
+        const elementImpl = {
+            defaultConfig,
+            onConfigChange: async (newConfig) => {
+                config = { ...defaultConfig, ...newConfig };
+                applyConfig();
+            },
+            mapToCapabilities: (cfg) => ({
+                recolorables: [
+                    { get: () => cfg.background_color || defaultConfig.background_color, set: (v) => { cfg.background_color = v; if (window.elementSdk) window.elementSdk.setConfig({ background_color: v }); }},
+                    { get: () => cfg.surface_color || defaultConfig.surface_color, set: (v) => { cfg.surface_color = v; if (window.elementSdk) window.elementSdk.setConfig({ surface_color: v }); }},
+                    { get: () => cfg.text_color || defaultConfig.text_color, set: (v) => { cfg.text_color = v; if (window.elementSdk) window.elementSdk.setConfig({ text_color: v }); }},
+                    { get: () => cfg.primary_action || defaultConfig.primary_action, set: (v) => { cfg.primary_action = v; if (window.elementSdk) window.elementSdk.setConfig({ primary_action: v }); }},
+                    { get: () => cfg.secondary_action || defaultConfig.secondary_action, set: (v) => { cfg.secondary_action = v; if (window.elementSdk) window.elementSdk.setConfig({ secondary_action: v }); }}
+                ],
+                borderables: [],
+                fontEditable: undefined,
+                fontSizeable: undefined
+            }),
+            mapToEditPanelValues: (cfg) => new Map([
+                ['app_title', cfg.app_title || defaultConfig.app_title],
+                ['app_subtitle', cfg.app_subtitle || defaultConfig.app_subtitle],
+                ['welcome_urdu', cfg.welcome_urdu || defaultConfig.welcome_urdu]
+            ])
+        };
+
+        function applyConfig() {
+            const titleEl = document.getElementById('app-title');
+            const subtitleEl = document.getElementById('app-subtitle');
+            if (titleEl) titleEl.textContent = config.app_title || defaultConfig.app_title;
+            if (subtitleEl) subtitleEl.textContent = config.app_subtitle || defaultConfig.app_subtitle;
+            document.body.style.backgroundColor = config.background_color || defaultConfig.background_color;
+        }
+
+        // Initialize
+        async function initApp() {
+            try {
+                if (window.elementSdk) {
+                    await window.elementSdk.init(elementImpl);
+                    config = { ...defaultConfig, ...window.elementSdk.config };
+                }
+                applyConfig();
+
+                if (window.dataSdk) {
+                    await window.dataSdk.init(dataHandler);
+                }
+
+                // Check if language is set
+                if (!appState.language) {
+                    document.getElementById('language-modal').classList.remove('hidden');
+                } else {
+                    document.getElementById('language-modal').classList.add('hidden');
+                    applyTranslations();
+                }
+
+                await getLocation();
+                await loadPrayerTimes();
+                await loadHijriDate();
+                await loadRandomAyah();
+                await loadRandomHadith();
+                await loadSurahs();
+                await loadHisnMuslimData();
+                initCompass();
+                loadTasbeehData();
+                
+                startCountdownTimer();
+                checkDailyReview();
+                setInterval(checkDailyReview, 60000);
+                
+                if (window.lucide) {
+                    lucide.createIcons();
+                }
+            } catch (error) {
+                console.error('Init error:', error);
+            }
+        }
+
+        // Location - Get real GPS coordinates
+        async function getLocation() {
+            return new Promise((resolve) => {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(
+                        (position) => {
+                            appState.location.lat = position.coords.latitude;
+                            appState.location.lng = position.coords.longitude;
+                            console.log('Real location obtained:', appState.location);
+                            loadQiblaDirection();
+                            calculateDistanceToMakkah();
+                            resolve();
+                        },
+                        (error) => {
+                            console.warn('Geolocation error:', error);
+                            // Fallback to Makkah coordinates
+                            appState.location = { lat: 21.4225, lng: 39.8262 };
+                            showToast(appState.language === 'ur' ? 'مقام کی اجازت درکار ہے' : 'Location permission needed for accurate times', 'error');
+                            loadQiblaDirection();
+                            calculateDistanceToMakkah();
+                            resolve();
+                        },
+                        {
+                            enableHighAccuracy: true,
+                            timeout: 10000,
+                            maximumAge: 0
+                        }
+                    );
+                } else {
+                    appState.location = { lat: 21.4225, lng: 39.8262 };
+                    showToast(appState.language === 'ur' ? 'جیو لوکیشن دستیاب نہیں' : 'Geolocation not supported', 'error');
+                    resolve();
+                }
+            });
+        }
+
+        function calculateDistanceToMakkah() {
+            const makkahLat = 21.4225;
+            const makkahLng = 39.8262;
+            
+            const R = 6371;
+            const dLat = (makkahLat - appState.location.lat) * Math.PI / 180;
+            const dLon = (makkahLng - appState.location.lng) * Math.PI / 180;
+            
+            const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                      Math.cos(appState.location.lat * Math.PI / 180) * 
+                      Math.cos(makkahLat * Math.PI / 180) *
+                      Math.sin(dLon/2) * Math.sin(dLon/2);
+                      
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+            const distance = R * c;
+            
+            const distEl = document.getElementById('makkah-distance');
+            if (distEl) {
+                distEl.textContent = distance < 1 ? `${Math.round(distance * 1000)} meters` : `${Math.round(distance)} km`;
+            }
+        }
+
+        // Compass Functions
+        function initCompass() {
+            if ('DeviceOrientationEvent' in window) {
+                if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+                    const btn = document.getElementById('compass-permission-btn');
+                    if (btn) btn.classList.remove('hidden');
+                    const status = document.getElementById('qibla-status');
+                    if (status) status.textContent = appState.language === 'ur' ? 'کمپاس شروع کرنے کے لیے ٹیپ کریں' : 'Tap "Enable Compass" to start';
+                } else {
+                    startCompass();
+                }
+            } else {
+                const status = document.getElementById('qibla-status');
+                if (status) status.textContent = appState.language === 'ur' ? 'اس آلہ پر کمپاس دستیاب نہیں ہے' : 'Compass not supported on this device';
+            }
+        }
+
+        async function requestCompassPermission() {
+            try {
+                const permission = await DeviceOrientationEvent.requestPermission();
+                if (permission === 'granted') {
+                    startCompass();
+                    const btn = document.getElementById('compass-permission-btn');
+                    if (btn) btn.classList.add('hidden');
+                } else {
+                    const status = document.getElementById('qibla-status');
+                    if (status) status.textContent = appState.language === 'ur' ? 'اجازت مسترد کر دی گئی' : 'Permission denied. Please enable in settings.';
+                }
+            } catch (error) {
+                console.error('Permission error:', error);
+            }
+        }
+
+        function startCompass() {
+            window.addEventListener('deviceorientationabsolute', handleOrientation, true);
+            window.addEventListener('deviceorientation', handleOrientation, true);
+            appState.compassEnabled = true;
+            const status = document.getElementById('qibla-status');
+            if (status) status.textContent = appState.language === 'ur' ? 'کمپاس فعال - اپنا آلہ گھمائیں' : 'Compass Active - Rotate your device';
+        }
+
+        function handleOrientation(event) {
+            let heading = event.alpha;
+            
+            if (heading === null) {
+                if (event.webkitCompassHeading) {
+                    heading = event.webkitCompassHeading;
+                } else {
+                    return;
+                }
+            }
+            
+            appState.deviceHeading = Math.round(heading);
+            updateCompass();
+        }
+
+        function updateCompass() {
+            const compassDevice = document.getElementById('compass-device');
+            const deviceHeadingEl = document.getElementById('device-heading');
+            const alignmentEl = document.getElementById('alignment-indicator');
+            
+            if (compassDevice) compassDevice.style.transform = `rotate(${-appState.deviceHeading}deg)`;
+            if (deviceHeadingEl) deviceHeadingEl.textContent = `${appState.deviceHeading}°`;
+            
+            if (alignmentEl) {
+                const diff = Math.abs(appState.deviceHeading - appState.qiblaDegree);
+                const normalizedDiff = Math.min(diff, 360 - diff);
+                
+                if (normalizedDiff < 5) {
+                    alignmentEl.className = 'mb-6 p-4 rounded-2xl bg-emerald-100 dark:bg-emerald-900/30 transition-all aligned';
+                    alignmentEl.innerHTML = appState.language === 'ur' 
+                        ? '<p class="text-lg font-black text-emerald-600 font-urdu">✓ قبلہ کے ساتھ سیدھ میں! 🕋</p>'
+                        : '<p class="text-lg font-black text-emerald-600">✓ Aligned with Qibla! 🕋</p>';
+                } else if (normalizedDiff < 15) {
+                    alignmentEl.className = 'mb-6 p-4 rounded-2xl bg-yellow-100 dark:bg-yellow-900/30 transition-all';
+                    alignmentEl.innerHTML = appState.language === 'ur'
+                        ? '<p class="text-sm font-bold text-yellow-600 font-urdu">تقریباً پہنچ گئے! آہستہ آہستہ گھماتے رہیں...</p>'
+                        : '<p class="text-sm font-bold text-yellow-600">Almost there! Keep turning slowly...</p>';
+                } else {
+                    alignmentEl.className = 'mb-6 p-4 rounded-2xl bg-gray-100 dark:bg-slate-800 transition-all';
+                    const direction = ((appState.qiblaDegree - appState.deviceHeading + 360) % 360) < 180 ? 'right ��' : 'left ↺';
+                    const urduDirection = direction.includes('right') ? 'دائیں ↻' : 'بائیں ↺';
+                    alignmentEl.innerHTML = appState.language === 'ur'
+                        ? `<p class="text-sm font-bold opacity-75 font-urdu">${urduDirection} موڑیں (${Math.round(normalizedDiff)}° دور)</p>`
+                        : `<p class="text-sm font-bold opacity-75">Turn ${direction} (${Math.round(normalizedDiff)}° away)</p>`;
+                }
+            }
+        }
+
+        // Prayer Times - Using Aladhan API (Gold Standard)
+        async function loadPrayerTimes() {
+            try {
+                const today = Math.floor(Date.now() / 1000); // Unix timestamp
+                const response = await fetch(
+                    `https://api.aladhan.com/v1/timings/${today}?latitude=${appState.location.lat}&longitude=${appState.location.lng}&method=1`
+                );
+                const data = await response.json();
+                
+                if (data.code === 200 && data.data && data.data.timings) {
+                    appState.prayerTimes = data.data.timings;
+                    console.log('Prayer times loaded:', appState.prayerTimes);
+                    renderPrayerTimes();
+                    renderPrayerTracking();
+                    updatePrayerTimeline();
+                } else {
+                    throw new Error('Invalid response from Aladhan API');
+                }
+            } catch (error) {
+                console.error('Prayer times error:', error);
+                showToast(appState.language === 'ur' ? 'نماز کے اوقات لوڈ کرنے میں ناکام' : 'Failed to load prayer times', 'error');
+            }
+        }
+
+        function renderPrayerTimes() {
+            const prayerMap = { Fajr: 'Fajr', Dhuhr: 'Dhuhr', Asr: 'Asr', Maghrib: 'Maghrib', Isha: 'Isha' };
+            
+            prayers.forEach(prayer => {
+                const time = appState.prayerTimes[prayerMap[prayer]] || '--:--';
+                const timeEl = document.getElementById(`${prayer.toLowerCase()}-time`);
+                const cardEl = document.getElementById(`${prayer.toLowerCase()}-card`);
+                if (timeEl) timeEl.textContent = time;
+                
+                const isNext = getNextPrayer() === prayer;
+                if (cardEl) {
+                    if (isNext) {
+                        cardEl.classList.add('bg-white/20');
+                        cardEl.classList.remove('bg-white/10');
+                    } else {
+                        cardEl.classList.remove('bg-white/20');
+                        cardEl.classList.add('bg-white/10');
+                    }
+                }
+            });
+        }
+
+        function updatePrayerTimeline() {
+            const timeline = document.getElementById('prayer-timeline');
+            if (!timeline) return;
+            
+            const now = new Date();
+            const currentMinutes = now.getHours() * 60 + now.getMinutes();
+            const t = translations[appState.language];
+            
+            timeline.innerHTML = prayers.map((prayer, index) => {
+                const time = appState.prayerTimes[prayer] || '--:--';
+                const [hours, minutes] = time.split(':').map(Number);
+                const prayerMinutes = hours * 60 + minutes;
+                const isPast = prayerMinutes < currentMinutes;
+                const isCurrent = !isPast && (index === 0 || prayers.slice(0, index).every(p => {
+                    const [h, m] = (appState.prayerTimes[p] || '0:0').split(':').map(Number);
+                    return (h * 60 + m) < currentMinutes;
+                }));
+                
+                const record = appState.prayerRecords.find(r => r.date === appState.todayDate && r.prayer === prayer);
+                const status = record?.status;
+                
+                let dotColor = 'bg-gray-300 dark:bg-gray-700';
+                let lineColor = 'bg-gray-300 dark:bg-gray-700';
+                let statusIcon = '';
+                
+                if (status === 'done') {
+                    dotColor = 'bg-emerald-500';
+                    lineColor = 'bg-emerald-500';
+                    statusIcon = '<i data-lucide="check" class="w-3 h-3 text-white"></i>';
+                } else if (status === 'missed') {
+                    dotColor = 'bg-red-500';
+                    lineColor = 'bg-red-500';
+                    statusIcon = '<i data-lucide="x" class="w-3 h-3 text-white"></i>';
+                } else if (isCurrent) {
+                    dotColor = 'bg-emerald-500 animate-pulse';
+                }
+                
+                const prayerName = t ? t[prayer.toLowerCase()] : prayer;
+                const currentText = t ? t.current : 'Current';
+                const pendingText = t ? t.pending : 'Pending';
+                
+                return `
+                    <div class="flex items-start gap-4">
+                        <div class="flex flex-col items-center">
+                            <div class="timeline-dot ${dotColor} flex items-center justify-center">${statusIcon}</div>
+                            ${index < prayers.length - 1 ? `<div class="timeline-line ${lineColor} h-12"></div>` : ''}
+                        </div>
+                        <div class="flex-1 pb-8">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="font-bold ${isCurrent ? 'text-emerald-600' : ''} ${appState.language === 'ur' ? 'font-urdu' : ''}">${prayerName}</p>
+                                    <p class="text-sm opacity-50">${time}</p>
+                                </div>
+                                ${isCurrent ? `<span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600">${currentText}</span>` : ''}
+                                ${isPast && !status ? `<span class="px-3 py-1 rounded-full text-xs font-bold bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600">${pendingText}</span>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            setTimeout(() => {
+                if (window.lucide) lucide.createIcons();
+            }, 100);
+        }
+
+        function renderPrayerTracking() {
+            const list = document.getElementById('prayer-tracker-list');
+            if (!list) return;
+            
+            const prayerMap = { Fajr: 'Fajr', Dhuhr: 'Dhuhr', Asr: 'Asr', Maghrib: 'Maghrib', Isha: 'Isha' };
+            const t = translations[appState.language];
+            
+            list.innerHTML = prayers.map(prayer => {
+                const time = appState.prayerTimes[prayerMap[prayer]] || '--:--';
+                const record = appState.prayerRecords.find(r => r.date === appState.todayDate && r.prayer === prayer);
+                const status = record?.status || 'pending';
+                
+                let bgClass = 'glass';
+                let iconName = 'clock';
+                let iconColor = 'text-gray-600';
+                
+                if (status === 'done') { 
+                    bgClass = 'bg-emerald-100 dark:bg-emerald-900/30'; 
+                    iconName = 'check-circle';
+                    iconColor = 'text-emerald-600';
+                }
+                if (status === 'missed') { 
+                    bgClass = 'bg-red-100 dark:bg-red-900/30'; 
+                    iconName = 'x-circle';
+                    iconColor = 'text-red-600';
+                }
+                
+                const prayerName = t ? t[prayer.toLowerCase()] : prayer;
+                
+                return `
+                    <div class="${bgClass} rounded-3xl p-6 flex items-center justify-between prayer-card">
+                        <div class="flex items-center gap-4">
+                            <i data-lucide="${iconName}" class="w-8 h-8 ${iconColor}"></i>
+                            <div>
+                                <p class="font-black text-lg ${appState.language === 'ur' ? 'font-urdu' : ''}">${prayerName}</p>
+                                <p class="text-sm opacity-50">${time}</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="markPrayer('${prayer}', 'done')" class="px-4 py-2 rounded-xl ${status === 'done' ? 'bg-emerald-600 text-white' : 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600'} text-sm font-bold transition-all flex items-center gap-1">
+                                <i data-lucide="check" class="w-4 h-4"></i>
+                            </button>
+                            <button onclick="markPrayer('${prayer}', 'missed')" class="px-4 py-2 rounded-xl ${status === 'missed' ? 'bg-red-600 text-white' : 'bg-red-100 dark:bg-red-900/30 text-red-600'} text-sm font-bold transition-all flex items-center gap-1">
+                                <i data-lucide="x" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            setTimeout(() => {
+                if (window.lucide) lucide.createIcons();
+            }, 100);
+        }
+
+        async function markPrayer(prayer, status) {
+            if (!window.dataSdk) return;
+            
+            const existingRecord = appState.prayerRecords.find(
+                r => r.date === appState.todayDate && r.prayer === prayer
+            );
+            
+            try {
+                if (existingRecord) {
+                    existingRecord.status = status;
+                    existingRecord.timestamp = new Date().toISOString();
+                    await window.dataSdk.update(existingRecord);
+                } else {
+                    if (appState.prayerRecords.length >= 999) {
+                        showToast(appState.language === 'ur' ? 'اسٹوریج کی حد پہنچ گئی' : 'Storage limit reached', 'error');
+                        return;
+                    }
+                    await window.dataSdk.create({
+                        date: appState.todayDate,
+                        prayer: prayer,
+                        status: status,
+                        timestamp: new Date().toISOString()
+                    });
+                }
+                const t = translations[appState.language];
+                const prayerName = t ? t[prayer.toLowerCase()] : prayer;
+                const statusText = status === 'done' ? (t ? t.done : 'done') : (t ? t.missed : 'missed');
+                showToast(`${prayerName} ${statusText}`, 'success');
+            } catch (error) {
+                showToast(appState.language === 'ur' ? 'محفوظ کرنے میں ناکام' : 'Failed to save', 'error');
+            }
+        }
+
+        function updatePrayerUI() {
+            renderPrayerTracking();
+            renderPrayerTimes();
+            updatePrayerTimeline();
+        }
+
+        function updateStats() {
+            const todayRecords = appState.prayerRecords.filter(r => r.date === appState.todayDate);
+            const done = todayRecords.filter(r => r.status === 'done').length;
+            const missed = todayRecords.filter(r => r.status === 'missed').length;
+            const pending = 5 - done - missed;
+            
+            const doneEl = document.getElementById('stat-done');
+            const missedEl = document.getElementById('stat-missed');
+            const pendingEl = document.getElementById('stat-pending');
+            
+            if (doneEl) doneEl.textContent = done;
+            if (missedEl) missedEl.textContent = missed;
+            if (pendingEl) pendingEl.textContent = pending;
+        }
+
+        function getNextPrayer() {
+            const now = new Date();
+            const currentTime = now.getHours() * 60 + now.getMinutes();
+            
+            for (const prayer of prayers) {
+                const time = appState.prayerTimes[prayer];
+                if (time) {
+                    const [hours, minutes] = time.split(':').map(Number);
+                    const prayerTime = hours * 60 + minutes;
+                    if (prayerTime > currentTime) return prayer;
+                }
+            }
+            return prayers[0];
+        }
+
+        function startCountdownTimer() {
+            function updateCountdown() {
+                const nextPrayer = getNextPrayer();
+                const nextTime = appState.prayerTimes[nextPrayer];
+                
+                if (nextTime) {
+                    const nextPrayerEl = document.getElementById('next-prayer');
+                    const nextTimeEl = document.getElementById('next-time');
+                    const countdownEl = document.getElementById('countdown');
+                    
+                    const t = translations[appState.language];
+                    const prayerName = t ? t[nextPrayer.toLowerCase()] : nextPrayer;
+                    
+                    if (nextPrayerEl) nextPrayerEl.textContent = prayerName;
+                    if (nextTimeEl) nextTimeEl.textContent = nextTime;
+                    
+                    const now = new Date();
+                    const [hours, minutes] = nextTime.split(':').map(Number);
+                    let prayerDate = new Date(now);
+                    prayerDate.setHours(hours, minutes, 0, 0);
+                    
+                    if (prayerDate < now) {
+                        prayerDate.setDate(prayerDate.getDate() + 1);
+                    }
+                    
+                    const diff = prayerDate - now;
+                    const h = Math.floor(diff / 3600000);
+                    const m = Math.floor((diff % 3600000) / 60000);
+                    
+                    if (countdownEl) {
+                        countdownEl.textContent = appState.language === 'ur' 
+                            ? `${m} منٹ ${h} گھنٹ�� میں`
+                            : `in ${h}h ${m}m`;
+                    }
+                }
+                
+                renderPrayerTimes();
+            }
+            
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        }
+
+        // Hijri Date - Using Aladhan API (Gold Standard)
+        async function loadHijriDate() {
+            try {
+                const today = new Date();
+                const dateStr = `${today.getDate().toString().padStart(2, '0')}-${(today.getMonth() + 1).toString().padStart(2, '0')}-${today.getFullYear()}`;
+                const response = await fetch(`https://api.aladhan.com/v1/gToH/${dateStr}`);
+                const data = await response.json();
+                
+                if (data.code === 200 && data.data && data.data.hijri) {
+                    const hijri = data.data.hijri;
+                    console.log('Hijri date loaded:', hijri);
+                    
+                    const hijriEl = document.getElementById('hijri-date');
+                    if (hijriEl) {
+                        if (appState.language === 'ur') {
+                            hijriEl.textContent = `${hijri.day} ${hijri.month.ar} ${hijri.year} ہجری`;
+                        } else {
+                            hijriEl.textContent = `${hijri.day} ${hijri.month.en} ${hijri.year} AH`;
+                        }
+                    }
+                } else {
+                    throw new Error('Invalid Hijri date response');
+                }
+            } catch (error) {
+                console.error('Hijri date error:', error);
+            }
+        }
+
+        // Qibla - Using Aladhan API (Gold Standard)
+        async function loadQiblaDirection() {
+            try {
+                const response = await fetch(
+                    `https://api.aladhan.com/v1/qibla/${appState.location.lat}/${appState.location.lng}`
+                );
+                const data = await response.json();
+                
+                if (data.code === 200 && data.data && data.data.direction) {
+                    appState.qiblaDegree = Math.round(data.data.direction);
+                    console.log('Qibla direction loaded:', appState.qiblaDegree);
+                    
+                    const degreeEl = document.getElementById('qibla-degree');
+                    const pointerEl = document.getElementById('qibla-pointer');
+                    
+                    if (degreeEl) degreeEl.textContent = `${appState.qiblaDegree}°`;
+                    if (pointerEl) pointerEl.style.transform = `rotate(${appState.qiblaDegree}deg)`;
+                } else {
+                    throw new Error('Invalid Qibla direction response');
+                }
+            } catch (error) {
+                console.error('Qibla error:', error);
+                showToast(appState.language === 'ur' ? 'قبلہ کی سمت لوڈ کرنے میں ناکام' : 'Failed to load Qibla direction', 'error');
+            }
+        }
+
+        // Quran
+        async function loadSurahs() {
+            try {
+                const response = await fetch('https://api.alquran.cloud/v1/surah');
+                const data = await response.json();
+                appState.surahs = data.data;
+                renderSurahList(appState.surahs);
+            } catch (error) {
+                console.error('Surahs error:', error);
+            }
+        }
+
+        function renderSurahList(surahs) {
+            const list = document.getElementById('surah-list');
+            if (!list) return;
+            
+            const t = translations[appState.language];
+            
+            list.innerHTML = surahs.map(surah => `
+                <button onclick="openSurah(${surah.number})" class="glass rounded-3xl p-4 flex items-center justify-between hover:bg-emerald-50 dark:hover:bg-slate-800 transition-all prayer-card">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-2xl bg-emerald-600 flex items-center justify-center text-white font-black">
+                            ${surah.number}
+                        </div>
+                        <div class="text-left">
+                            <p class="font-black">${surah.englishName}</p>
+                            <p class="text-xs opacity-50">${surah.englishNameTranslation}</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <p class="font-arabic text-lg text-emerald-600">${surah.name}</p>
+                        <p class="text-xs opacity-50">${surah.numberOfAyahs} ${t ? t.ayahs : 'Ayahs'}</p>
+                    </div>
+                </button>
+            `).join('');
+        }
+
+        function filterSurahs(query) {
+            const filtered = appState.surahs.filter(s => 
+                s.englishName.toLowerCase().includes(query.toLowerCase()) ||
+                s.name.includes(query)
+            );
+            renderSurahList(filtered);
+        }
+
+        async function openSurah(number) {
+            try {
+                showToast(appState.language === 'ur' ? 'سورہ لوڈ ہو رہی ہے...' : 'Loading Surah...', 'info');
+                
+                // Get translation edition based on language
+                const translationEdition = appState.language === 'ur' ? 'ur.jalandhry' : 'en.sahih';
+                
+                const arResponse = await fetch(`https://api.alquran.cloud/v1/surah/${number}/ar.alafasy`);
+                const transResponse = await fetch(`https://api.alquran.cloud/v1/surah/${number}/${translationEdition}`);
+                
+                const arData = await arResponse.json();
+                const transData = await transResponse.json();
+                
+                const arabic = arData.data;
+                const translation = transData.data;
+                
+                const readerName = document.getElementById('reader-surah-name');
+                const audioSurahName = document.getElementById('audio-surah-name');
+                
+                if (readerName) readerName.textContent = arabic.englishName;
+                if (audioSurahName) audioSurahName.textContent = arabic.englishName;
+                
+                // Setup audio
+                const audio = document.getElementById('quran-audio');
+                if (audio) {
+                    audio.src = `https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/${number}.mp3`;
+                    audio.load();
+                    
+                    audio.onloadedmetadata = () => {
+                        const durationEl = document.getElementById('duration-time');
+                        if (durationEl) durationEl.textContent = formatTime(audio.duration);
+                    };
+                    
+                    audio.ontimeupdate = () => {
+                        const currentEl = document.getElementById('current-time');
+                        const progressBar = document.getElementById('progress-bar');
+                        if (currentEl) currentEl.textContent = formatTime(audio.currentTime);
+                        if (progressBar && audio.duration) {
+                            progressBar.style.width = `${(audio.currentTime / audio.duration) * 100}%`;
+                        }
+                    };
+                    
+                    audio.onended = () => {
+                        appState.isPlaying = false;
+                        const playIcon = document.getElementById('play-icon');
+                        if (playIcon) playIcon.setAttribute('data-lucide', 'play');
+                        if (window.lucide) lucide.createIcons();
+                    };
+                }
+                
+                const container = document.getElementById('ayah-container');
+                if (container) {
+                    container.innerHTML = arabic.ayahs.map((ayah, index) => `
+                        <div class="mushaf">
+                            <div class="flex justify-between items-start mb-3">
+                                <span class="w-8 h-8 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-600 text-sm font-bold">
+                                    ${ayah.numberInSurah}
+                                </span>
+                            </div>
+                            <p class="font-arabic text-2xl text-emerald-600 leading-loose mb-4">${ayah.text}</p>
+                            <p class="${appState.language === 'ur' ? 'font-urdu text-xl' : 'text-base'} opacity-75 leading-relaxed mb-2">${translation.ayahs[index].text}</p>
+                        </div>
+                    `).join('');
+                }
+                
+                const listView = document.getElementById('surah-list-view');
+                const readerView = document.getElementById('surah-reader');
+                
+                if (listView) listView.classList.add('hidden');
+                if (readerView) readerView.classList.remove('hidden');
+                
+                showToast(appState.language === 'ur' ? 'سورہ لوڈ ہو گئی' : 'Surah loaded successfully', 'success');
+            } catch (error) {
+                console.error('Surah error:', error);
+                showToast(appState.language === 'ur' ? 'سورہ لوڈ کرنے میں ناکام' : 'Failed to load Surah', 'error');
+            }
+        }
+
+        function closeSurahReader() {
+            const audio = document.getElementById('quran-audio');
+            if (audio) {
+                audio.pause();
+                audio.currentTime = 0;
+            }
+            appState.isPlaying = false;
+            
+            const playIcon = document.getElementById('play-icon');
+            if (playIcon) playIcon.setAttribute('data-lucide', 'play');
+            if (window.lucide) lucide.createIcons();
+            
+            const readerView = document.getElementById('surah-reader');
+            const listView = document.getElementById('surah-list-view');
+            
+            if (readerView) readerView.classList.add('hidden');
+            if (listView) listView.classList.remove('hidden');
+        }
+
+        function toggleAudioPlay() {
+            const audio = document.getElementById('quran-audio');
+            const playIcon = document.getElementById('play-icon');
+            
+            if (!audio) return;
+            
+            if (appState.isPlaying) {
+                audio.pause();
+                appState.isPlaying = false;
+                if (playIcon) playIcon.setAttribute('data-lucide', 'play');
+            } else {
+                audio.play();
+                appState.isPlaying = true;
+                if (playIcon) playIcon.setAttribute('data-lucide', 'pause');
+            }
+            
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        async function loadRandomAyah() {
+            try {
+                const randomSurah = Math.floor(Math.random() * 114) + 1;
+                const translationEdition = appState.language === 'ur' ? 'ur.jalandhry' : 'en.sahih';
+                
+                const arResponse = await fetch(`https://api.alquran.cloud/v1/surah/${randomSurah}/ar.alafasy`);
+                const transResponse = await fetch(`https://api.alquran.cloud/v1/surah/${randomSurah}/${translationEdition}`);
+                
+                const arData = await arResponse.json();
+                const transData = await transResponse.json();
+                
+                const arabic = arData.data;
+                const translation = transData.data;
+                const randomIndex = Math.floor(Math.random() * arabic.ayahs.length);
+                
+                const ayahContainer = document.getElementById('daily-ayah');
+                if (ayahContainer) {
+                    ayahContainer.innerHTML = `
+                        <p class="font-arabic text-xl text-emerald-600 leading-loose">${arabic.ayahs[randomIndex].text}</p>
+                        <p class="${appState.language === 'ur' ? 'font-urdu text-lg' : 'text-sm'} opacity-75 mb-2">${translation.ayahs[randomIndex].text}</p>
+                        <p class="text-xs opacity-50">- ${arabic.englishName} ${randomIndex + 1}</p>
+                    `;
+                }
+            } catch (error) {
+                console.error('Random ayah error:', error);
+            }
+        }
+
+        // Hadith
+        async function loadRandomHadith() {
+            try {
+                const hadithEdition = appState.language === 'ur' ? 'urd-bukhari' : 'eng-bukhari';
+                const response = await fetch(`https://cdn.jsdelivr.net/gh/fawazahmed0/hadith-api@1/editions/${hadithEdition}.json`);
+                const data = await response.json();
+                
+                const hadiths = data.hadiths;
+                const randomHadith = hadiths[Math.floor(Math.random() * hadiths.length)];
+                
+                const hadithContainer = document.getElementById('daily-hadith');
+                if (hadithContainer) {
+                    const bookName = appState.language === 'ur' ? 'صحیح بخاری' : 'Sahih Bukhari';
+                    hadithContainer.innerHTML = `
+                        <p class="${appState.language === 'ur' ? 'font-urdu text-base' : 'text-sm'} opacity-75 leading-relaxed">${randomHadith.text || 'Hadith text'}</p>
+                        <p class="text-xs opacity-50">- ${bookName} ${randomHadith.hadithnumber || ''}</p>
+                    `;
+                }
+            } catch (error) {
+                console.error('Random hadith error:', error);
+            }
+        }
+
+        async function loadHadithBook(book) {
+            appState.currentHadithBook = book;
+            appState.hadithPage = 1;
+            
+            document.querySelectorAll('.hadith-book-btn').forEach(btn => {
+                btn.classList.remove('bg-emerald-600', 'text-white');
+                btn.classList.add('glass');
+            });
+            
+            const activeBtn = document.querySelector(`[data-book="${book}"]`);
+            if (activeBtn) {
+                activeBtn.classList.add('bg-emerald-600', 'text-white');
+                activeBtn.classList.remove('glass');
+            }
+            
+            await loadHadithPage();
+        }
+
+        async function loadHadithPage() {
+            try {
+                const bookMap = {
+                    'bukhari': appState.language === 'ur' ? 'urd-bukhari' : 'eng-bukhari',
+                    'muslim': appState.language === 'ur' ? 'urd-muslim' : 'eng-muslim',
+                    'abudawud': appState.language === 'ur' ? 'urd-abudawud' : 'eng-abudawud',
+                    'tirmidhi': appState.language === 'ur' ? 'urd-tirmidhi' : 'eng-tirmidhi',
+                    'nasai': appState.language === 'ur' ? 'urd-nasai' : 'eng-nasai',
+                    'ibnmajah': appState.language === 'ur' ? 'urd-ibnmajah' : 'eng-ibnmajah'
+                };
+                
+                const bookNamesEn = {
+                    'bukhari': 'Sahih Bukhari',
+                    'muslim': 'Sahih Muslim',
+                    'abudawud': 'Sunan Abu Dawud',
+                    'tirmidhi': 'Jami at-Tirmidhi',
+                    'nasai': 'Sunan an-Nasai',
+                    'ibnmajah': 'Sunan Ibn Majah'
+                };
+                
+                const bookNamesUr = {
+                    'bukhari': 'صحیح بخاری',
+                    'muslim': 'صحیح مسلم',
+                    'abudawud': 'سنن ابو داؤد',
+                    'tirmidhi': 'جامع ترمذی',
+                    'nasai': 'سنن نسائی',
+                    'ibnmajah': 'سنن ابن ماجہ'
+                };
+                
+                const response = await fetch(`https://cdn.jsdelivr.net/gh/fawazahmed0/hadith-api@1/editions/${bookMap[appState.currentHadithBook]}.json`);
+                const data = await response.json();
+                
+                const start = (appState.hadithPage - 1) * 10;
+                const hadiths = data.hadiths.slice(start, start + 10);
+                
+                const bookName = appState.language === 'ur' ? bookNamesUr[appState.currentHadithBook] : bookNamesEn[appState.currentHadithBook];
+                
+                const list = document.getElementById('hadith-list');
+                if (list) {
+                    list.innerHTML = hadiths.map(h => `
+                        <div class="glass rounded-3xl p-6">
+                            <div class="flex items-center gap-2 text-emerald-600 text-sm font-bold mb-3 ${appState.language === 'ur' ? 'font-urdu' : ''}">
+                                <i data-lucide="scroll-text" class="w-4 h-4"></i> 
+                                ${bookName} - ${appState.language === 'ur' ? 'حدیث' : 'Hadith'} ${h.hadithnumber || ''}
+                            </div>
+                            <p class="${appState.language === 'ur' ? 'font-urdu text-base' : 'text-sm'} opacity-75 leading-relaxed">${h.text || 'Hadith text'}</p>
+                        </div>
+                    `).join('');
+                    
+                    setTimeout(() => {
+                        if (window.lucide) lucide.createIcons();
+                    }, 100);
+                }
+                
+                const t = translations[appState.language];
+                const pageEl = document.getElementById('hadith-page');
+                if (pageEl) pageEl.textContent = `${t ? t.page : 'Page'} ${appState.hadithPage}`;
+            } catch (error) {
+                console.error('Hadith page error:', error);
+            }
+        }
+
+        function loadMoreHadith(direction) {
+            appState.hadithPage = Math.max(1, appState.hadithPage + direction);
+            loadHadithPage();
+        }
+// Adhkar - Load Hisn al-Muslim data
+async function loadHisnMuslimData() {
+    try {
+        // Fetching from a reliable raw JSON source for Hisn al-Muslim
+        const response = await fetch('https://raw.githubusercontent.com/wafaaelmaandy/Hisn-Muslim-Json/master/hisn_en.json');
+        const data = await response.json();
+        
+        // Store the array of chapters (usually 'data' in this specific JSON)
+        appState.hisnMuslimData = data;
+    } catch (error) {
+        console.error('Failed to load Hisn al-Muslim data:', error);
+    }
+}
+
+async function loadAdhkarCategory(category) {
+    const list = document.getElementById('adhkar-list');
+    const categoryTitleEl = document.getElementById('adhkar-category-title');
+
+    // 1. Update Title and Font
+    const categoryTitlesEn = { morning: 'Morning Adhkar', evening: 'Evening Adhkar', sleep: 'Before Sleep', wakeup: 'Upon Waking', general: 'General Duas' };
+    const categoryTitlesUr = { morning: 'صبح کے اذکار', evening: 'شام کے اذکار', sleep: 'سونے سے پہلے', wakeup: 'بیدار ہونے پر', general: 'عام دعائیں' };
+
+    if (categoryTitleEl) {
+        categoryTitleEl.textContent = appState.language === 'ur' ? categoryTitlesUr[category] : categoryTitlesEn[category];
+        if (appState.language === 'ur') {
+            categoryTitleEl.classList.add('font-urdu');
+        } else {
+            categoryTitleEl.classList.remove('font-urdu');
+        }
+    }
+
+    // 2. Show loading state
+    if (list) {
+        list.innerHTML = `
+            <div class="glass rounded-3xl p-12 text-center">
+                <div class="loading-spinner w-12 h-12 border-4 border-emerald-200 border-t-emerald-600 rounded-full mx-auto mb-4 animate-spin"></div>
+                <p class="${appState.language === 'ur' ? 'font-urdu text-lg' : 'text-sm'} opacity-75">
+                    ${appState.language === 'ur' ? 'اذکار لوڈ ہو رہے ہیں...' : 'Loading Adhkar...'}
+                </p>
+            </div>`;
+    }
+
+    try {
+        // 3. Load data if not already present
+        if (!appState.hisnMuslimData) {
+            await loadHisnMuslimData();
+        }
+
+        let items = [];
+        
+        // 4. Filter logic based on the specific JSON structure
+        if (appState.hisnMuslimData) {
+            const categoryMap = {
+                morning: ['Morning'],
+                evening: ['Evening'],
+                sleep: ['sleeping'],
+                wakeup: ['wake up'],
+                general: ['prayer', 'repentance', 'glorifying']
+            };
+
+            const searchTerms = categoryMap[category] || [];
+            
+            // Filtering the chapters
+            const matchedChapters = appState.hisnMuslimData.filter(chapter => 
+                searchTerms.some(term => chapter.TITLE.toLowerCase().includes(term.toLowerCase()))
+            );
+
+            // Extracting individual Adhkar items
+            matchedChapters.forEach(chapter => {
+                chapter.ID_READ.forEach(dua => {
+                    items.push({
+                        arabic: dua.ARABIC_TEXT,
+                        translation: dua.TRANSLATION_EN,
+                        repeat: parseInt(dua.REPEAT) || 1,
+                        reference: dua.REFRANCE
+                    });
+                });
+            });
+        }
+
+        // 5. Render the list
+        renderAdhkarList(items);
+
+    } catch (error) {
+        console.error('Error loading category:', error);
+        if (list) list.innerHTML = '<p class="text-center p-8">Error loading Adhkar. Please try again.</p>';
+    }
+}
+       
+                
+                // Fallback: Load from Aladhan API
+                if (items.length === 0) {
+                    try {
+                        const response = await fetch('https://api.aladhan.com/v1/adhkar');
+                        const data = await response.json();
+                        
+                        if (data.code === 200 && data.data) {
+                            const adhkarList = data.data;
+                            
+                            adhkarList.forEach(adhkar => {
+                                const category_en = adhkar.category_en?.toLowerCase() || '';
+                                
+                                let matchesCategory = false;
+                                if (category === 'morning' && category_en.includes('morning')) matchesCategory = true;
+                                if (category === 'evening' && category_en.includes('evening')) matchesCategory = true;
+                                if (category === 'sleep' && category_en.includes('sleep')) matchesCategory = true;
+                                if (category === 'wakeup' && category_en.includes('wake')) matchesCategory = true;
+                                if (category === 'general') matchesCategory = true;
+                                
+                                if (matchesCategory) {
+                                    items.push({
+                                        arabic: adhkar.text_ar || adhkar.arabic || '',
+                                        translation: adhkar.text_en || '',
+                                        repeat: parseInt(adhkar.repeat) || 1,
+                                        reference: adhkar.reference || ''
+                                    });
+                                }
+                            });
+                        }
+                    } catch (error) {
+                        console.error('Aladhan API error:', error);
+                    }
+                }
+                
+                // If Quran category, load Quranic Duas
+                if (category === 'quran') {
+                    try {
+                        const response = await fetch('https://api.alquran.cloud/v1/tag/dua');
+                        const data = await response.json();
+                        
+                        if (data.code === 200 && data.data) {
+                            const duas = data.data.slice(0, 15);
+                            
+                            for (const dua of duas) {
+                                const translationEdition = appState.language === 'ur' ? 'ur.jalandhry' : 'en.sahih';
+                                const transResponse = await fetch(`https://api.alquran.cloud/v1/ayah/${dua.number}/${translationEdition}`);
+                                const transData = await transResponse.json();
+                                
+                                if (transData.code === 200) {
+                                    items.push({
+                                        arabic: dua.text || '',
+                                        translation: transData.data.text || '',
+                                        repeat: 1,
+                                        reference: `Quran ${dua.surah.number}:${dua.numberInSurah}`
+                                    });
+                                }
+                            }
+                        }
+                    } catch (error) {
+                        console.error('Quran API error:', error);
+                    }
+                }
+                
+                // Limit items for performance
+                items = items.slice(0, 20);
+                
+                const t = translations[appState.language];
+                
+                if (list) {
+                    if (items.length === 0) {
+                        list.innerHTML = `
+                            <div class="glass rounded-3xl p-12 text-center">
+                                <i data-lucide="book-x" class="w-16 h-16 mx-auto mb-4 text-gray-400"></i>
+                                <p class="${appState.language === 'ur' ? 'font-urdu text-lg' : 'text-sm'} opacity-75">
+                                    ${appState.language === 'ur' ? 'کوئی اذکار دستیاب نہیں' : 'No Adhkar available'}
+                                </p>
+                            </div>
+                        `;
+                    } else {
+                        list.innerHTML = items.map((item, index) => `
+                            <div class="glass rounded-3xl p-6 fade-in">
+                                <div class="flex items-center justify-between mb-3">
+                                    <span class="text-sm text-emerald-600 font-bold flex items-center gap-2">
+                                        <i data-lucide="hash" class="w-4 h-4"></i> ${index + 1}
+                                    </span>
+                                    <div class="flex items-center gap-2">
+                                        ${item.repeat > 1 ? `<span class="text-xs px-3 py-1 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 rounded-xl font-bold ${appState.language === 'ur' ? 'font-urdu' : ''}">${t ? t.repeat : 'Repeat'} ${item.repeat}x</span>` : ''}
+                                    </div>
+                                </div>
+                                <p class="font-arabic text-2xl text-emerald-600 leading-loose mb-3">${item.arabic}</p>
+                                <p class="${appState.language === 'ur' ? 'font-urdu text-base' : 'text-sm'} opacity-75 mb-2 leading-relaxed">${item.translation}</p>
+                                ${item.reference ? `<p class="text-xs opacity-50 flex items-center gap-1"><i data-lucide="book-open" class="w-3 h-3"></i> ${item.reference}</p>` : ''}
+                            </div>
+                        `).join('');
+                    }
+                    
+                    setTimeout(() => {
+                        if (window.lucide) lucide.createIcons();
+                    }, 100);
+                }
+            } catch (error) {
+                console.error('Adhkar loading error:', error);
+                if (list) {
+                    list.innerHTML = `
+                        <div class="glass rounded-3xl p-12 text-center">
+                            <i data-lucide="alert-circle" class="w-16 h-16 mx-auto mb-4 text-red-400"></i>
+                            <p class="${appState.language === 'ur' ? 'font-urdu text-lg' : 'text-sm'} opacity-75 text-red-600">
+                                ${appState.language === 'ur' ? 'اذکار لوڈ کرنے میں ناکام' : 'Failed to load Adhkar'}
+                            </p>
+                        </div>
+                    `;
+                    setTimeout(() => {
+                        if (window.lucide) lucide.createIcons();
+                    }, 100);
+                }
+            }
+            
+            const content = document.getElementById('adhkar-content');
+            const categories = document.getElementById('adhkar-categories');
+            
+            if (content) content.classList.remove('hidden');
+            if (categories) categories.classList.add('hidden');
+        }
+
+        function closeAdhkarContent() {
+            const content = document.getElementById('adhkar-content');
+            const categories = document.getElementById('adhkar-categories');
+            
+            if (content) content.classList.add('hidden');
+            if (categories) categories.classList.remove('hidden');
+        }
+
+        // History
+        function updateTrackerHistory() {
+            const container = document.getElementById('tracker-history');
+            const noHistory = document.getElementById('no-history');
+            
+            if (!container || !noHistory) return;
+            
+            if (appState.prayerRecords.length === 0) {
+                container.classList.add('hidden');
+                noHistory.classList.remove('hidden');
+                return;
+            }
+            
+            container.classList.remove('hidden');
+            noHistory.classList.add('hidden');
+            
+            const groupedByDate = {};
+            appState.prayerRecords.forEach(record => {
+                if (!groupedByDate[record.date]) groupedByDate[record.date] = [];
+                groupedByDate[record.date].push(record);
+            });
+            
+            const sortedDates = Object.keys(groupedByDate).sort().reverse();
+            const t = translations[appState.language];
+            
+            container.innerHTML = sortedDates.slice(0, 7).map(date => {
+                const records = groupedByDate[date];
+                const done = records.filter(r => r.status === 'done').length;
+                const missed = records.filter(r => r.status === 'missed').length;
+                const percentage = Math.round((done / 5) * 100);
+                
+                const doneText = t ? t.done : 'Done';
+                const missedText = t ? t.missed : 'Missed';
+                
+                return `
+                    <div class="glass rounded-3xl p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <p class="font-bold flex items-center gap-2 ${appState.language === 'ur' ? 'font-urdu' : ''}">
+                                <i data-lucide="calendar" class="w-4 h-4 text-emerald-600"></i>
+                                ${new Date(date).toLocaleDateString(appState.language === 'ur' ? 'ur-PK' : 'en-US', { weekday: 'short', month: 'short', day: 'numeric' })}
+                            </p>
+                            <span class="px-3 py-1 rounded-full text-xs font-bold ${percentage >= 80 ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600' : percentage >= 50 ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600' : 'bg-red-100 dark:bg-red-900/30 text-red-600'}">
+                                ${percentage}%
+                            </span>
+                        </div>
+                        <div class="flex gap-2 mb-3">
+                            ${prayers.map(p => {
+                                const rec = records.find(r => r.prayer === p);
+                                const status = rec?.status || 'pending';
+                                return `<div class="flex-1 h-2 rounded-full ${status === 'done' ? 'bg-emerald-500' : status === 'missed' ? 'bg-red-500' : 'bg-gray-300 dark:bg-gray-700'}" title="${p}"></div>`;
+                            }).join('')}
+                        </div>
+                        <div class="flex justify-between text-xs opacity-50 ${appState.language === 'ur' ? 'font-urdu' : ''}">
+                            <span class="flex items-center gap-1">
+                                <i data-lucide="check" class="w-3 h-3"></i> ${done} ${doneText}
+                            </span>
+                            <span class="flex items-center gap-1">
+                                <i data-lucide="x" class="w-3 h-3"></i> ${missed} ${missedText}
+                            </span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            setTimeout(() => {
+                if (window.lucide) lucide.createIcons();
+            }, 100);
+        }
+
+        // 9PM Check
+        function checkDailyReview() {
+            const now = new Date();
+            const hour = now.getHours();
+            const lastCheck = localStorage.getItem('lastDailyCheck');
+            const today = appState.todayDate;
+            
+            if (hour >= 21 && lastCheck !== today) {
+                showDailyModal();
+                localStorage.setItem('lastDailyCheck', today);
+            }
+        }
+
+        function showDailyModal() {
+            const todayRecords = appState.prayerRecords.filter(r => r.date === appState.todayDate);
+            const done = todayRecords.filter(r => r.status === 'done').length;
+            const missed = todayRecords.filter(r => r.status === 'missed').length;
+            
+            const modal = document.getElementById('modal-9pm');
+            const icon = document.getElementById('modal-icon');
+            const title = document.getElementById('modal-title');
+            const urduText = document.getElementById('modal-urdu');
+            const message = document.getElementById('modal-message');
+            const completedEl = document.getElementById('modal-completed');
+            const missedEl = document.getElementById('modal-missed');
+            
+            if (completedEl) completedEl.textContent = done;
+            if (missedEl) missedEl.textContent = missed;
+            
+            if (appState.language === 'ur') {
+                if (done === 5) {
+                    if (icon) icon.textContent = '🎉';
+                    if (title) title.textContent = 'ماشاءاللہ! کا��ل دن!';
+                    if (urduText) urduText.textContent = 'آپ نے آج کی تمام ۵ نمازیں ادا کیں۔ اللہ آپ کو برکت دے!';
+                    if (message) message.textContent = '';
+                } else if (done >= 3) {
+                    if (icon) icon.textContent = '💪';
+                    if (title) title.textContent = 'اچھی پیش رفت!';
+                    if (urduText) urduText.textContent = `آپ نے آج ${done} نمازیں ادا کیں۔ جاری رکھیں!`;
+                    if (message) message.textContent = '';
+                } else {
+                    if (icon) icon.textContent = '🤍';
+                    if (title) title.textContent = 'بہتری کی گنجائش';
+                    if (urduText) urduText.textContent = 'کل ایک نیا موقع ہے۔ کوشش جاری رکھیں!';
+                    if (message) message.textContent = '';
+                }
+            } else {
+                if (done === 5) {
+                    if (icon) icon.textContent = '🎉';
+                    if (title) title.textContent = 'MashAllah! Perfect Day!';
+                    if (urduText) urduText.textContent = 'کیا آپ نے آج کی تمام نمازیں ادا کر لی ہیں؟';
+                    if (message) message.textContent = 'You completed all 5 prayers today. May Allah bless you!';
+                } else if (done >= 3) {
+                    if (icon) icon.textContent = '💪';
+                    if (title) title.textContent = 'Good Progress!';
+                    if (urduText) urduText.textContent = 'کیا آپ نے آج کی تمام نمازیں ادا کر لی ہیں؟';
+                    if (message) message.textContent = `You completed ${done} prayers today. Keep going!`;
+                } else {
+                    if (icon) icon.textContent = '🤍';
+                    if (title) title.textContent = 'Room for Growth';
+                    if (urduText) urduText.textContent = 'ک��ا آپ نے آج کی تمام نمازیں ادا کر لی ہیں؟';
+                    if (message) message.textContent = 'Tomorrow is a new opportunity. Keep striving!';
+                }
+            }
+            
+            if (modal) modal.classList.remove('hidden');
+        }
+
+        function closeDailyModal() {
+            const modal = document.getElementById('modal-9pm');
+            if (modal) modal.classList.add('hidden');
+        }
+
+        // Navigation
+        function showSection(section) {
+            ['home', 'prayers', 'qibla', 'quran', 'hadith', 'adhkar', 'history', 'tasbeeh'].forEach(s => {
+                const el = document.getElementById(`section-${s}`);
+                if (el) el.classList.add('hidden');
+            });
+            
+            const targetEl = document.getElementById(`section-${section}`);
+            if (targetEl) targetEl.classList.remove('hidden');
+            
+            document.querySelectorAll('.nav-pill').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.section === section) btn.classList.add('active');
+            });
+            
+            if (window.lucide) {
+                setTimeout(() => lucide.createIcons(), 100);
+            }
+        }
+
+        // Tasbeeh Functions
+        function loadTasbeehData() {
+            const saved = localStorage.getItem('tasbeehData');
+            if (saved) {
+                const data = JSON.parse(saved);
+                
+                // Reset daily count if new day
+                if (data.lastDate !== appState.todayDate) {
+                    data.todayTotal = 0;
+                    data.lastDate = appState.todayDate;
+                }
+                
+                appState.tasbeeh = { ...appState.tasbeeh, ...data };
+            }
+            updateTasbeehUI();
+            renderTasbeehHistory();
+        }
+
+        function saveTasbeehData() {
+            const data = {
+                ...appState.tasbeeh,
+                lastDate: appState.todayDate
+            };
+            localStorage.setItem('tasbeehData', JSON.stringify(data));
+        }
+
+        function incrementTasbeeh() {
+            appState.tasbeeh.count++;
+            appState.tasbeeh.todayTotal++;
+            appState.tasbeeh.lifetimeTotal++;
+            
+            // Check if round completed
+            if (appState.tasbeeh.count >= appState.tasbeeh.target) {
+                appState.tasbeeh.completedRounds++;
+                
+                // Add to history
+                appState.tasbeeh.history.unshift({
+                    dhikr: appState.tasbeeh.currentDhikr,
+                    dhikrEn: appState.tasbeeh.currentDhikrEn,
+                    count: appState.tasbeeh.count,
+                    timestamp: new Date().toISOString()
+                });
+                
+                // Keep only last 20 items
+                appState.tasbeeh.history = appState.tasbeeh.history.slice(0, 20);
+                
+                const t = translations[appState.language];
+                showToast(t ? t.round_completed : 'Round Completed! 🎉', 'success');
+                
+                // Reset count for next round
+                appState.tasbeeh.count = 0;
+                
+                // Play celebration animation
+                const countEl = document.getElementById('tasbeeh-count');
+                if (countEl) {
+                    countEl.style.transform = 'scale(1.2)';
+                    setTimeout(() => countEl.style.transform = 'scale(1)', 300);
+                }
+                
+                renderTasbeehHistory();
+            }
+            
+            updateTasbeehUI();
+            saveTasbeehData();
+        }
+
+        function resetTasbeeh() {
+            appState.tasbeeh.count = 0;
+            updateTasbeehUI();
+            saveTasbeehData();
+        }
+
+        function toggleTasbeehSettings() {
+            const settings = document.getElementById('tasbeeh-settings');
+            if (settings) {
+                settings.classList.toggle('hidden');
+                if (window.lucide) {
+                    setTimeout(() => lucide.createIcons(), 100);
+                }
+            }
+        }
+
+        function selectDhikr(arabic, english, target) {
+            appState.tasbeeh.currentDhikr = arabic;
+            appState.tasbeeh.currentDhikrEn = english;
+            appState.tasbeeh.target = target;
+            appState.tasbeeh.count = 0;
+            
+            updateTasbeehUI();
+            saveTasbeehData();
+            
+            const settings = document.getElementById('tasbeeh-settings');
+            if (settings) settings.classList.add('hidden');
+            
+            showToast(`${english} - ${target}x`, 'success');
+        }
+
+        function setCustomTarget() {
+            const input = document.getElementById('custom-target-input');
+            if (input) {
+                const value = parseInt(input.value);
+                if (value > 0 && value <= 9999) {
+                    appState.tasbeeh.target = value;
+                    appState.tasbeeh.count = 0;
+                    updateTasbeehUI();
+                    saveTasbeehData();
+                    
+                    const t = translations[appState.language];
+                    showToast(t ? `${t.target}: ${value}` : `Target set: ${value}`, 'success');
+                }
+            }
+        }
+
+        function updateTasbeehUI() {
+            const countEl = document.getElementById('tasbeeh-count');
+            const targetEl = document.getElementById('tasbeeh-target');
+            const remainingEl = document.getElementById('tasbeeh-remaining');
+            const progressEl = document.getElementById('tasbeeh-progress');
+            const dhikrEl = document.getElementById('current-dhikr-arabic');
+            const todayEl = document.getElementById('total-today');
+            const lifetimeEl = document.getElementById('total-lifetime');
+            const roundsEl = document.getElementById('completed-rounds');
+            
+            if (countEl) countEl.textContent = appState.tasbeeh.count;
+            if (targetEl) targetEl.textContent = appState.tasbeeh.target;
+            if (remainingEl) remainingEl.textContent = Math.max(0, appState.tasbeeh.target - appState.tasbeeh.count);
+            if (dhikrEl) dhikrEl.textContent = appState.tasbeeh.currentDhikr;
+            if (todayEl) todayEl.textContent = appState.tasbeeh.todayTotal;
+            if (lifetimeEl) lifetimeEl.textContent = appState.tasbeeh.lifetimeTotal;
+            if (roundsEl) roundsEl.textContent = appState.tasbeeh.completedRounds;
+            
+            if (progressEl) {
+                const percentage = Math.min(100, (appState.tasbeeh.count / appState.tasbeeh.target) * 100);
+                progressEl.style.width = `${percentage}%`;
+            }
+        }
+
+        function renderTasbeehHistory() {
+            const list = document.getElementById('tasbeeh-history-list');
+            const noHistory = document.getElementById('no-tasbeeh-history');
+            
+            if (!list || !noHistory) return;
+            
+            if (appState.tasbeeh.history.length === 0) {
+                list.classList.add('hidden');
+                noHistory.classList.remove('hidden');
+                return;
+            }
+            
+            list.classList.remove('hidden');
+            noHistory.classList.add('hidden');
+            
+            list.innerHTML = appState.tasbeeh.history.map((item, index) => {
+                const time = new Date(item.timestamp).toLocaleTimeString(
+                    appState.language === 'ur' ? 'ur-PK' : 'en-US',
+                    { hour: '2-digit', minute: '2-digit' }
+                );
+                
+                return `
+                    <div class="glass rounded-2xl p-4 flex items-center justify-between fade-in">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-600 font-bold">
+                                ${item.count}
+                            </div>
+                            <div>
+                                <p class="font-arabic text-sm text-emerald-600">${item.dhikr}</p>
+                                <p class="text-xs opacity-50">${item.dhikrEn}</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-xs opacity-50">${time}</p>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            setTimeout(() => {
+                if (window.lucide) lucide.createIcons();
+            }, 100);
+        }
+
+        // Navigation
+        function showSection(section) {
+            ['home', 'prayers', 'qibla', 'quran', 'hadith', 'adhkar', 'history', 'tasbeeh'].forEach(s => {
+                const el = document.getElementById(`section-${s}`);
+                if (el) el.classList.add('hidden');
+            });
+            
+            const targetEl = document.getElementById(`section-${section}`);
+            if (targetEl) targetEl.classList.remove('hidden');
+            
+            document.querySelectorAll('.nav-pill').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.section === section) btn.classList.add('active');
+            });
+            
+            if (window.lucide) {
+                setTimeout(() => lucide.createIcons(), 100);
+            }
+        }
+
+        // Dark Mode
+        function toggleDarkMode() {
+            appState.darkMode = !appState.darkMode;
+            document.body.classList.toggle('dark');
+            
+            const icon = document.getElementById('theme-icon');
+            if (icon) {
+                if (appState.darkMode) {
+                    icon.setAttribute('data-lucide', 'moon');
+                } else {
+                    icon.setAttribute('data-lucide', 'sun');
+                }
+                if (window.lucide) lucide.createIcons();
+            }
+        }
+
+        // Toast
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+            
+            const toast = document.createElement('div');
+            
+            const bgColor = type === 'success' ? 'bg-emerald-600' : type === 'error' ? 'bg-red-600' : 'bg-gray-800';
+            const iconName = type === 'success' ? 'check-circle' : type === 'error' ? 'x-circle' : 'info';
+            
+            toast.className = `toast ${bgColor} px-6 py-4 rounded-2xl shadow-xl text-white text-sm font-bold flex items-center gap-2 ${appState.language === 'ur' ? 'font-urdu' : ''}`;
+            toast.innerHTML = `
+                <i data-lucide="${iconName}" class="w-5 h-5"></i>
+                <span>${message}</span>
+            `;
+            
+            container.appendChild(toast);
+            
+            if (window.lucide) lucide.createIcons();
+            
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        // Initialize
+        initApp();
+    </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9c6ea7158532e89f',t:'MTc2OTkxOTU4OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
